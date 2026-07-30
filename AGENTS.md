@@ -2,10 +2,11 @@
 
 ## Purpose
 
-- This repository is a reusable engineering scaffold for a static, client-side, Python-first
-  scientific applet.
-- It contains no scientific formula. The arithmetic demonstration is conspicuously replaceable.
-- Python under `src/template_applet/` is source of truth; generated browser Python is ignored.
+- This repository is the focused static app for normalized Wald relative support reconstructed
+  from a reported estimate and two-sided 95% confidence interval.
+- Released `wald-inference` is the sole numerical authority. The local package owns strict request
+  validation, browser payloads, display choices, warnings, and exports.
+- Python under `src/wald_likelihood_support/` is source of truth; generated browser Python is ignored.
 
 ## Commands
 
@@ -23,8 +24,14 @@
 
 - Before non-trivial changes, state assumptions, ambiguities, tradeoffs, success criteria, risks,
   expected files, and verification commands.
-- Keep scientific methods out of the template demonstration. An initialized app must document and
-  validate its own formula authority.
+- Never copy a Wald, likelihood, support-ratio, or support-interval formula into this app. Add a
+  missing primitive to `wald-inference` and release it before adoption.
+- Keep the response limited to `meta`, `reconstruction`, the five-field likelihood `grid`,
+  `support_interval`, `reference_support`, `pairwise_comparisons`, and `warnings`.
+- Do not add compatibility/p-values as a primary output, repeated-study design metrics, selection
+  rules, Type S/M, information multipliers, precision targets, priors, or Bayes factors.
+- Preserve the explicit pairwise order `log L(A)/L(B)`, retain the finite log result when a natural
+  ratio overflows or underflows, and describe the likelihood as normalized and approximate.
 - Run staging; never hand-edit `web/assets/py/`.
 - Keep external scientific dependencies exact-version locked and, for URL artifacts, checksum
   bound in package metadata, `uv.lock`, and `browser-stage.toml`.
@@ -45,5 +52,7 @@
 - Relevant unit, contract, property, initializer, staging, privacy, Chromium, and WebKit checks
   pass.
 - Stage output is reproducible from a clean checkout without a sibling repository.
-- Scientific scope, validation, privacy, citation, maintenance, and decisions are truthful.
+- B01–B03/B08 likelihood/S−2 parity and generic support identities pass at documented tolerances.
+- Scientific scope, exact-vs-approximate wording, validation, privacy, citation, maintenance, and
+  decisions are truthful.
 - The final report names commands, results, generated files, limitations, and residual risks.

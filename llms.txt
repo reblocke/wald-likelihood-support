@@ -1,24 +1,72 @@
-# Scientific Applet Template
+# Wald Likelihood Support
 
-Purpose: reusable static, client-side, Python-first scientific applet engineering scaffold.
+Purpose: experimental static app for normalized approximate Wald relative support reconstructed
+from a reported estimate and two-sided 95% confidence interval.
+
+Status:
+- Version 0.1.0 is an experimental GitHub prerelease with a static Pages deployment at
+  `https://reblocke.github.io/wald-likelihood-support/`.
+- Engineering tests do not establish scientific, clinical, or regulatory validity.
 
 Important boundaries:
-- The repository implements no scientific formula.
-- The two-number addition is a replace-me demonstration only.
-- Python under `src/template_applet/` is source of truth.
+- Root-public `wald_inference` APIs are the sole numerical authority.
+- The app must not copy a Wald, likelihood, support-ratio, or support-interval formula.
+- The result is normalized and approximate, not the original exact fitted-model profile
+  likelihood.
+- Pairwise order is `log L(A)/L(B)`; positive favors A, and the finite signed log result remains
+  authoritative when an ordinary ratio overflows or underflows.
+- S−2 is approximately 7.4:1 from the MLE to a boundary; it is not a 2:1 interval.
+- Compatibility/p-values, design, selection, Type S/M, information, precision, priors,
+  posteriors, and Bayes factors are out of scope.
+- Python under `src/wald_likelihood_support/` owns validation, orchestration, strict response
+  assembly, warnings, and exports.
 - `web/assets/py/` is generated from the locked environment and ignored.
 - Browser requests and responses use a strict JSON worker contract.
-- There is no backend, persistence, telemetry, cookie, or input-bearing URL.
+- There is no backend, persistence, telemetry, cookie, input-bearing URL, or upload path.
+- Do not enter or commit PHI or identifying patient data.
+
+Exact response:
+- Top level: `meta`, `reconstruction`, `grid`, `support_interval`, `reference_support`,
+  `pairwise_comparisons`, `warnings`.
+- Grid/CSV order: `effect_display`, `effect_working`, `standardized_distance`,
+  `relative_likelihood`, `log_relative_likelihood`.
+
+Core dependency:
+- Official `wald-inference` v0.2.1 prerelease.
+- Wheel:
+  `https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl`
+- SHA-256:
+  `dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc`
+- Annotated tag target: `4628a9ce9a6e051ce4b66e18e1d33536346696ac`.
+
+Provenance:
+- Integrated behavior source: `reblocke/conf_curve_likelihood` commit
+  `830756ecb11b4e8161f8dfe1fc75afc346ef4467`.
+- Frozen named fixtures: commit `5fd501dd947d9b951d736014cfc2b310efa5e7b0`, tag
+  `pre-split-baseline-2026-07-29`, cases B01–B03 and likelihood-relevant B08,
+  `rtol=1e-12`, `atol=1e-14`.
+- Fixture manifest SHA-256:
+  `f54bb2d8311788c07adcf23fc9f038e35702449e4a77a474abea9411246cabcc`;
+  fixture-set SHA-256:
+  `81c341b39e711caffc85a444f0c1e4bc1e2d00633474c82e720afeb60def3c4d`.
+- Creation template: `reblocke/scientific-applet-template` v0.1.0 commit
+  `a360bde95c192d8de4f9a3b531e73600ebf3d8b8`, tree
+  `6a6c8c33cbef24b5dcbd35706d2292d9d3e5e359`.
+- Zampieri et al., AJRCCM 2025, doi:10.1164/rccm.202504-0809TR; repository retrieval
+  2026-04-23; article CC BY-NC-ND 4.0; no substantial source text or figures copied.
 
 Key files:
-- `README.md`: initialization and architecture.
-- `docs/TEMPLATE_USAGE.md`: downstream author workflow.
-- `docs/SCIENTIFIC_SCOPE.md`: required scientific scope prompts.
-- `docs/VALIDATION.md`: validation plan and evidence prompts.
-- `docs/PRIVACY.md`: data-flow boundary.
+- `README.md`: public front door, scope, status, and architecture.
+- `docs/SCIENTIFIC_SCOPE.md`: scientific question, inputs, outputs, assumptions, and non-goals.
+- `docs/VALIDATION.md`: frozen provenance, tolerances, gates, and evidence limits.
+- `docs/PRIVACY.md`: data flow, no-PHI boundary, and change gate.
+- `docs/DECISIONS.md`: controlling scientific and engineering decisions.
+- `docs/RUNTIME_DEPENDENCIES.md`: artifact, paper, license, and template provenance.
+- `docs/TEMPLATE_USAGE.md`: creation-template provenance only.
 - `browser-stage.toml`: exact package and Pyodide configuration.
 - `scripts/stage_browser_packages.py`: deterministic staging.
-- `scripts/initialize_template.py`: guarded identity initializer.
 
 Canonical verification:
 `uv sync --locked && uv run playwright install chromium webkit && make verify`
+
+Verification is not a release or deployment claim.

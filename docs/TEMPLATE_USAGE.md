@@ -1,66 +1,80 @@
-# Template Usage
+# Creation-Template Provenance
 
-## 1. Create and initialize
+This file records how `wald-likelihood-support` was created. It is not an instruction to
+reinitialize the repository.
 
-Create a repository with GitHub’s template control, clone it, restore the locked environment, and
-run:
+## Exact source
 
-```bash
-uv run python scripts/initialize_template.py \
-  --repository-name compatibility-curve \
-  --distribution-name compatibility-curve \
-  --import-name compatibility_curve \
-  --app-title "Wald Compatibility Curve" \
-  --description "A focused client-side scientific applet"
+The repository was initialized from:
+
+```text
+Repository: reblocke/scientific-applet-template
+Template tag: v0.1.0
+Commit: a360bde95c192d8de4f9a3b531e73600ebf3d8b8
+Tree: 6a6c8c33cbef24b5dcbd35706d2292d9d3e5e359
+Commit date: 2026-07-29T22:52:31-06:00
+License: MIT, Copyright (c) 2026 Brian Locke
 ```
 
-Accepted naming rules:
+The exact commit and tree matter because the tag identifies template engineering provenance, not
+scientific authority.
 
-- repository: lowercase kebab-case;
-- distribution: normalized lowercase Python project name;
-- import: lowercase Python identifier;
-- title and description: single-line non-empty text.
+## Initialization identity
 
-The initializer changes only working-tree files. It renames `src/template_applet/`, updates the
-identity in code, metadata, docs, workflows, HTML, tests, and lockfile, removes template-only
-provenance/self-test files, and writes `.applet-template-initialized.json`. It does not modify
-`.git`. Without `--force`, an initialized repository is rejected.
+The guarded initializer recorded:
 
-## 2. Establish scientific authority
+```text
+repository_name: wald-likelihood-support
+distribution_name: wald-likelihood-support
+import_name: wald_likelihood_support
+app_title: Wald Likelihood Support
+description: Explore normalized Wald relative support reconstructed from a reported estimate and
+             95% confidence interval.
+```
 
-Complete `SCIENTIFIC_SCOPE.md` and `VALIDATION.md` before replacing the demonstration. Identify
-the controlling source for each formula. If a released core owns the method, consume it rather
-than copying formulas into the app.
+It renamed `src/template_applet/` to `src/wald_likelihood_support/`, updated repository identity
+through the working tree, removed template-maintainer-only self-tests and provenance files, and
+wrote the ignored `.applet-template-initialized.json` replacement report. The initializer did not
+create scientific authority and did not modify Git history.
 
-## 3. Replace the demonstration
+## What was reused
 
-Replace:
+The creation template supplied:
 
-- request/response dataclasses in `src/<import_name>/models.py`;
-- the calculation and strict contract in `contract.py`;
-- form inputs and parsing;
-- textual result, table, plot, caption, and explicit export columns;
-- unit, contract, property, and browser fixtures.
+- a static responsive HTML/CSS shell;
+- a dedicated Pyodide Web Worker;
+- manifest-driven package staging and byte-integrity verification;
+- strict JSON request/response plumbing;
+- accessible labels, linked errors, visible focus, and live status;
+- explicit CSV, PNG, and caption export hooks;
+- client-side privacy guardrails; and
+- uv, Ruff, pytest, Hypothesis, Playwright, and GitHub workflow scaffolding.
 
-Keep `allow_nan=False` and the worker’s finite-number checks. User-correctable validation errors
-may be displayed; unexpected Python details, paths, and tracebacks must not be exposed.
+The template contained only a conspicuous arithmetic demonstration. No Wald formula, scientific
+claim, likelihood-support interpretation, fixture, figure, or app-specific prose came from the
+template.
 
-## 4. Configure browser packages
+## What this app owns
 
-Keep the project app entry in `browser-stage.toml`. Add zero or more exact-version external
-packages. For release URLs, configure both artifact URL and SHA-256, and use the same direct URL
-pin in `pyproject.toml` and `uv.lock`. Add Pyodide-provided dependencies to
-`pyodide_packages`.
+`wald-likelihood-support` replaces the demonstration with:
 
-Run `make stage-web`; never edit `web/assets/py/`.
+- its focused request and seven-key response contract;
+- likelihood-only browser controls, summaries, plot, warnings, and exact five-column CSV;
+- delegation to root-public APIs in the published `wald-inference` prerelease;
+- B01–B03/B08 and generic-support validation;
+- normalized approximate-likelihood and clinical-scope boundaries;
+- Zampieri citation provenance; and
+- app-specific maintenance, privacy, accessibility, and release gates.
 
-## 5. Complete public metadata
+## Ongoing relationship
 
-Resolve every `AUTHOR ACTION REQUIRED` prompt. Verify README, scientific scope, validation,
-privacy, decisions, maintenance, changelog, citation, license applicability, UI footer, hosted
-URL, core version, repository description, and related-tool links.
+The creation template is not installed, imported, fetched, or loaded at runtime. There is no
+automatic upstream synchronization. Future engineering ideas may be reviewed and adopted as
+ordinary, explicit changes; the app must never overwrite its scientific scope or behavior merely
+to match a newer template.
 
-## 6. Verify and publish
+Do not rerun the initializer on this repository. Development and verification use the app’s own
+instructions:
 
 ```bash
 uv sync --locked
@@ -70,5 +84,5 @@ git diff --check
 git status --short
 ```
 
-Open a reviewed pull request. Confirm CI, template self-test (template repository only), Pages,
-and the deployed app. Tag only the exact reviewed merge commit.
+These commands do not themselves establish a release or deployment. Release requirements are in
+`docs/VALIDATION.md` and `docs/MAINTENANCE.md`.
