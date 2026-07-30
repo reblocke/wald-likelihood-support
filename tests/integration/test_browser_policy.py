@@ -136,19 +136,40 @@ def test_likelihood_ui_has_no_compatibility_or_design_controls() -> None:
     assert "2:1 interval is a different" in html
 
 
-def test_external_source_links_are_safe_and_related_routes_are_static() -> None:
+def test_external_source_link_is_safe() -> None:
     html = (WEB_ROOT / "index.html").read_text(encoding="utf-8")
 
     assert 'href="https://academic.oup.com/ajrccm/article/211/9/1610/8300617"' in html
     source_section = html.split("academic.oup.com", maxsplit=1)[1].split(">", maxsplit=1)[0]
     assert 'target="_blank"' in source_section
     assert 'rel="noopener noreferrer"' in source_section
-    for repository in [
-        "compatibility-curve",
-        "critical-effect-size",
-        "type-s-m-calibrator",
-        "precision-guardrail-planner",
-        "conf_curve_likelihood",
-    ]:
-        assert repository in html
+    assert "fetch(" not in html
+
+
+def test_related_wald_tool_blocks_are_static_compact_and_exact() -> None:
+    html = (WEB_ROOT / "index.html").read_text(encoding="utf-8")
+    readme = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+    expected_links = [
+        "https://reblocke.github.io/wald-inference-tools/",
+        "https://reblocke.github.io/compatibility-curve/",
+        "https://reblocke.github.io/conf_curve_likelihood/",
+        "https://github.com/reblocke/wald-likelihood-support",
+        "https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.1",
+        "https://github.com/reblocke/wald-likelihood-support/blob/main/docs/PRIVACY.md",
+    ]
+
+    html_block = html.split('<section id="related-wald-tools">', maxsplit=1)[1].split(
+        "</section>", maxsplit=1
+    )[0]
+    readme_block = readme.split("## Related Wald tools", maxsplit=1)[1].split("\n## ", maxsplit=1)[
+        0
+    ]
+
+    assert "<h2>Related Wald tools</h2>" in html_block
+    assert re.findall(r'href="([^"]+)"', html_block) == expected_links
+    assert re.findall(r"\]\((https://[^)]+)\)", readme_block) == expected_links
+    assert "wald-inference Core v0.2.1" in html_block
+    assert "wald-inference Core v0.2.1" in readme_block
+    assert "Privacy note" in html_block
+    assert "Privacy note" in readme_block
     assert "fetch(" not in html

@@ -156,6 +156,17 @@ health information or other identifying data. Static CDN requests do not contain
 although CDN operators receive ordinary request metadata such as IP address and browser headers.
 See [docs/PRIVACY.md](docs/PRIVACY.md).
 
+## Related Wald tools
+
+- [Wald inference tools catalog](https://reblocke.github.io/wald-inference-tools/)
+- [Adjacent focused app: compatibility curve](https://reblocke.github.io/compatibility-curve/)
+- [Integrated workbench](https://reblocke.github.io/conf_curve_likelihood/)
+- [Source repository](https://github.com/reblocke/wald-likelihood-support)
+- [wald-inference Core v0.2.1](https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.1)
+- [Privacy note](https://github.com/reblocke/wald-likelihood-support/blob/main/docs/PRIVACY.md)
+
+These are static navigation links, not runtime dependencies.
+
 ## Local development
 
 ```bash
