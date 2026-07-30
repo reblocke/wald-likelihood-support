@@ -21,6 +21,32 @@ def _png_dimensions(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", contents[16:24])
 
 
+def _assert_plot_titles_contained(page: Page) -> None:
+    title_bounds = page.locator("#plot").evaluate(
+        """
+        (plot) => {
+          const plotBounds = plot.getBoundingClientRect();
+          return Array.from(plot.querySelectorAll(".gtitle")).map((title) => {
+            const bounds = title.getBoundingClientRect();
+            return {
+              left: bounds.left,
+              right: bounds.right,
+              plotLeft: plotBounds.left,
+              plotRight: plotBounds.right,
+              viewportWidth: window.innerWidth,
+            };
+          });
+        }
+        """
+    )
+    assert title_bounds
+    for bounds in title_bounds:
+        assert bounds["left"] >= bounds["plotLeft"] - 1
+        assert bounds["right"] <= bounds["plotRight"] + 1
+        assert bounds["left"] >= -1
+        assert bounds["right"] <= bounds["viewportWidth"] + 1
+
+
 def test_worker_loads_and_calculates(page: Page, app_url: str) -> None:
     _ready(page, app_url)
 
@@ -54,7 +80,7 @@ def test_worker_loads_and_calculates(page: Page, app_url: str) -> None:
     ]:
         expect(page.locator("#plot .annotation-text").filter(has_text=label)).to_be_visible()
     expect(page.locator("#reconstruction-summary")).to_contain_text("1.8")
-    expect(page.locator("#runtime-versions")).to_contain_text("wald-likelihood-support 0.1.1")
+    expect(page.locator("#runtime-versions")).to_contain_text("wald-likelihood-support 0.1.2")
     expect(page.locator("#runtime-versions")).to_contain_text("wald-inference 0.4.1")
     expect(page.locator("#core-version")).to_have_text("wald-inference core 0.4.1")
 
@@ -288,3 +314,43 @@ def test_mobile_keyboard_and_privacy_smoke(page: Page, app_url: str) -> None:
     assert page.evaluate(
         "document.documentElement.scrollWidth <= document.documentElement.clientWidth"
     )
+    effect_options = page.locator("#effect-type option").evaluate_all(
+        """
+        (options) => options.map((option) => ({
+          label: option.textContent.trim(),
+          value: option.value,
+        }))
+        """
+    )
+    assert effect_options
+    page.get_by_text("Advanced display controls").click()
+    for option in effect_options:
+        page.locator("#effect-type").select_option(str(option["value"]))
+        page.locator("#calculate").click()
+        expect(page.locator("#runtime-status")).to_have_text("Likelihood-support curve updated.")
+        for view, title in [
+            ("relative", "Normalized Wald relative likelihood"),
+            ("log", "Log relative support"),
+        ]:
+            page.locator("#view-mode").select_option(view)
+            plot_title = page.locator("#plot .gtitle")
+            page.wait_for_function(
+                """
+                ([expectedView, expectedEffect]) => {
+                  const raw = document.querySelector("#plot .gtitle")
+                    ?.getAttribute("data-unformatted");
+                  const normalized = raw
+                    ?.replaceAll("<br>", " ")
+                    .replace(/\\s+/g, " ")
+                    .trim();
+                  return normalized?.includes(expectedView) &&
+                    normalized?.includes(expectedEffect);
+                }
+                """,
+                arg=[title, str(option["label"]).lower()],
+            )
+            unformatted_title = plot_title.get_attribute("data-unformatted")
+            assert unformatted_title is not None
+            normalized_title = " ".join(unformatted_title.replace("<br>", " ").split())
+            assert title in normalized_title
+            _assert_plot_titles_contained(page)

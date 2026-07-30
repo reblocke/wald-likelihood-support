@@ -4,7 +4,7 @@
 
 Maintenance status: **experimental released software**.
 
-Version 0.1.1 is the current experimental app prerelease and is deployed as a static GitHub Pages
+Version 0.1.2 is the current experimental app prerelease and is deployed as a static GitHub Pages
 site. Its release and hosted availability do not establish scientific, clinical, or regulatory
 validity.
 

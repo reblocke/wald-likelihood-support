@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: >-
-  Cite version 0.1.1 and consult the scientific-reference provenance and
+  Cite version 0.1.2 and consult the scientific-reference provenance and
   limitations in the documentation.
 title: Wald Likelihood Support
 type: software
-version: 0.1.1
+version: 0.1.2
 date-released: 2026-07-30
 authors:
   - family-names: Locke

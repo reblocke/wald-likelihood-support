@@ -1,5 +1,5 @@
 export const APP_TITLE = "Wald Likelihood Support";
-export const APP_VERSION = "0.1.1";
+export const APP_VERSION = "0.1.2";
 export const CORE_VERSION = "0.4.1";
 export const PYODIDE_VERSION = "0.29.3";
 export const REPOSITORY_URL =

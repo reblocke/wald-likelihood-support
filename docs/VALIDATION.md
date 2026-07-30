@@ -2,7 +2,7 @@
 
 ## Status
 
-Version 0.1.1 is an experimental app prerelease with a static GitHub Pages deployment. The checks
+Version 0.1.2 is an experimental app prerelease with a static GitHub Pages deployment. The checks
 below are its engineering acceptance requirements and remain required for later releases.
 
 Engineering verification demonstrates implementation consistency. It does not establish that a
