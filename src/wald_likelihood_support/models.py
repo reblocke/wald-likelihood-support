@@ -24,7 +24,10 @@ SUPPORT_CRITERIA: tuple[SupportCriterion, ...] = (
 def _finite_number(value: object, *, field: str) -> float:
     if isinstance(value, bool) or not isinstance(value, int | float):
         raise ValidationError(f"{field} must be a number.")
-    number = float(value)
+    try:
+        number = float(value)
+    except OverflowError as exc:
+        raise ValidationError(f"{field} must be finite.") from exc
     if not math.isfinite(number):
         raise ValidationError(f"{field} must be finite.")
     return number
@@ -54,7 +57,7 @@ def _grid_points(value: object) -> int:
             f"Grid points must be between {MIN_GRID_POINTS} and {MAX_GRID_POINTS}."
         )
     if value % 2 == 0:
-        raise ValidationError("Grid points must be odd so the estimate is a grid point.")
+        raise ValidationError("Grid points must be odd.")
     return value
 
 

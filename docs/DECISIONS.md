@@ -72,9 +72,14 @@ Successful responses contain only finite JSON numbers or documented `null` value
 numeric tokens are rejected before serialization. A natural ratio may be `null` on overflow while
 its finite log result is retained.
 
-Every substantive plot result has a textual or tabular equivalent. Inputs have labels, errors
-link to controls, focus remains visible, status changes are announced, and keyboard use does not
-depend on pointer interaction.
+Every substantive plot result has a textual or tabular equivalent. Inputs have labels, browser
+parsing errors link to their controls, worker-domain errors remain focused in the alert summary,
+focus remains visible, status changes are announced, and keyboard use does not depend on pointer
+interaction.
+
+When an explicit display range contains the CI-implied estimate, the grid includes that exact
+working-scale value while preserving the requested endpoints and point count. A range that
+genuinely excludes the estimate remains presentation-only and produces an explicit warning.
 
 ## 2026-07-29 — Preserve a strict client-side privacy boundary
 

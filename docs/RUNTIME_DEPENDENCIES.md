@@ -74,9 +74,10 @@ reconstruction is the original study’s exact fitted likelihood.
 
 ## Frozen-behavior provenance
 
-B01–B03 and likelihood-relevant B08 migration fixtures originate in
-`reblocke/conf_curve_likelihood` at commit
-`830756ecb11b4e8161f8dfe1fc75afc346ef4467`. They are used as behavioral anchors at the tolerances
+B01–B03 and likelihood-relevant B08 behavior originates in `reblocke/conf_curve_likelihood` at
+commit `830756ecb11b4e8161f8dfe1fc75afc346ef4467`. The named migration fixtures were frozen at
+commit `5fd501dd947d9b951d736014cfc2b310efa5e7b0` under tag
+`pre-split-baseline-2026-07-29`. They are behavioral anchors at the hashes and tolerances
 documented in `docs/VALIDATION.md`; they are not runtime dependencies.
 
 ## Creation provenance

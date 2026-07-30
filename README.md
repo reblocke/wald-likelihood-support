@@ -104,10 +104,11 @@ https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_in
 SHA-256 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
 ```
 
-The app’s migration anchors come from the frozen B01–B03 and likelihood-relevant B08 behavior in
-`reblocke/conf_curve_likelihood` at commit
-`830756ecb11b4e8161f8dfe1fc75afc346ef4467`. See
-[docs/VALIDATION.md](docs/VALIDATION.md) for tolerances and limits.
+The extracted behavior comes from `reblocke/conf_curve_likelihood` at source commit
+`830756ecb11b4e8161f8dfe1fc75afc346ef4467`. The named B01–B03 and likelihood-relevant B08
+fixtures were frozen later at commit `5fd501dd947d9b951d736014cfc2b310efa5e7b0` under tag
+`pre-split-baseline-2026-07-29`. See [docs/VALIDATION.md](docs/VALIDATION.md) for fixture hashes,
+tolerances, and limits.
 
 Terminology for evidential likelihood, likelihood ratios, support, and S−2 intervals is attributed
 to Zampieri and colleagues:

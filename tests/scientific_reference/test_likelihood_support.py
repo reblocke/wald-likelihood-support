@@ -244,6 +244,35 @@ def test_b03_display_range_changes_only_grid_and_warnings() -> None:
     }
 
 
+def test_asymmetric_explicit_range_includes_in_range_estimate_and_normalized_peak() -> None:
+    response = _calculate(
+        effect_type="mean_difference",
+        lower=-0.0001,
+        upper=0.0001,
+        null_value=0.0,
+        thresholds=[],
+        display_range_lower=-1.0,
+        display_range_upper=0.9,
+        grid_points=101,
+    )
+    grid = response["grid"]
+
+    assert grid["effect_working"][0] == -1.0
+    assert grid["effect_working"][-1] == 0.9
+    assert len(grid["effect_working"]) == 101
+    estimate_indices = [
+        index
+        for index, value in enumerate(grid["effect_working"])
+        if value == response["reconstruction"]["estimate_working"]
+    ]
+    assert len(estimate_indices) == 1
+    estimate_index = estimate_indices[0]
+    assert grid["standardized_distance"][estimate_index] == 0.0
+    assert grid["relative_likelihood"][estimate_index] == 1.0
+    assert grid["log_relative_likelihood"][estimate_index] == 0.0
+    assert max(grid["relative_likelihood"]) == 1.0
+
+
 def test_b08a_large_additive_midpoint_stays_finite() -> None:
     response = _calculate(
         effect_type="mean_difference",

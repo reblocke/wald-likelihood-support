@@ -26,8 +26,10 @@ migration behavior.
 
 ## Frozen migration baseline
 
-The baseline source is `reblocke/conf_curve_likelihood` at exact commit
-`830756ecb11b4e8161f8dfe1fc75afc346ef4467`:
+The integrated behavior source is `reblocke/conf_curve_likelihood` at exact commit
+`830756ecb11b4e8161f8dfe1fc75afc346ef4467`. The following named fixtures were added and frozen at
+exact commit `5fd501dd947d9b951d736014cfc2b310efa5e7b0`, tagged
+`pre-split-baseline-2026-07-29`:
 
 ```text
 tests/golden/requests/B01.json
@@ -49,6 +51,9 @@ tests/golden/responses/B08d-ratio-natural-clipping.json
 B01–B03 store complete 401-point integrated responses. B08a–d are compact edge summaries rather
 than replacement full-response contracts. Scientific floating-point comparisons use
 `rtol=1e-12` and `atol=1e-14`; effect-registry identity/configuration values remain exact.
+The frozen manifest SHA-256 is
+`f54bb2d8311788c07adcf23fc9f038e35702449e4a77a474abea9411246cabcc`; the complete fixture-set
+SHA-256 is `81c341b39e711caffc85a444f0c1e4bc1e2d00633474c82e720afeb60def3c4d`.
 
 The focused app extracts only likelihood-support behavior:
 

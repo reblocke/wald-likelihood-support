@@ -156,6 +156,31 @@ def test_presentation_range_does_not_change_support_summaries(
     expect(page.locator("#warnings-list")).to_contain_text("selected support interval")
 
 
+def test_asymmetric_in_range_display_window_keeps_exact_normalized_peak(
+    page: Page,
+    app_url: str,
+) -> None:
+    _ready(page, app_url)
+    page.locator("#effect-type").select_option("mean_difference")
+    page.locator("#ci-lower").fill("-0.0001")
+    page.locator("#ci-upper").fill("0.0001")
+    page.locator("#null-value").fill("0")
+    page.locator("#display-range-lower").fill("-1")
+    page.locator("#display-range-upper").fill("0.9")
+    page.get_by_text("Advanced display controls").click()
+    page.locator("#grid-points").select_option("201")
+    page.locator("#calculate").click()
+
+    expect(page.locator("#runtime-status")).to_have_text("Likelihood-support curve updated.")
+    trace = page.locator("#plot").evaluate(
+        "(element) => ({x: element.data[0].x, y: element.data[0].y})"
+    )
+    estimate_index = trace["x"].index(0)
+    assert estimate_index >= 0
+    assert trace["y"][estimate_index] == 1
+    assert max(trace["y"]) == 1
+
+
 def test_overflow_uses_log_domain_status_in_browser(page: Page, app_url: str) -> None:
     _ready(page, app_url)
     page.locator("#effect-type").select_option("mean_difference")

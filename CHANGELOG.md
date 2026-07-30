@@ -20,9 +20,10 @@ Future releases will follow [Semantic Versioning](https://semver.org/).
   `https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl`,
   SHA-256
   `3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab`.
-- Recorded B01–B03 and likelihood-relevant B08 migration provenance from
-  `reblocke/conf_curve_likelihood` commit
-  `830756ecb11b4e8161f8dfe1fc75afc346ef4467`, with `rtol=1e-12` and `atol=1e-14`.
+- Recorded behavior provenance from `reblocke/conf_curve_likelihood` commit
+  `830756ecb11b4e8161f8dfe1fc75afc346ef4467` and the later frozen B01–B03/B08 fixture commit
+  `5fd501dd947d9b951d736014cfc2b310efa5e7b0` / tag
+  `pre-split-baseline-2026-07-29`, with `rtol=1e-12` and `atol=1e-14`.
 - Added scientific-scope, validation, privacy/no-PHI, decisions, maintenance, dependency,
   creation-template, citation, licensing, and LLM-facing documentation.
 - Attributed evidential-likelihood and S−2 terminology to Zampieri et al.,

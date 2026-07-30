@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
@@ -55,6 +56,13 @@ def test_focused_contract_has_exact_sections_and_grid_fields() -> None:
 def test_contract_rejects_nonstandard_json_numbers(constant: str) -> None:
     with pytest.raises(ValidationError, match="Non-finite JSON constant"):
         calculate_json(f'{{"lower": {constant}, "upper": 1}}')
+
+
+def test_contract_rejects_integer_too_large_for_binary64_as_validation_error() -> None:
+    huge_integer = "9" * 401
+
+    with pytest.raises(ValidationError, match="Lower 95% confidence limit must be finite"):
+        calculate_json(f'{{"lower": {huge_integer}, "upper": 1}}')
 
 
 def test_contract_returns_strict_json() -> None:
@@ -114,6 +122,25 @@ def test_contract_returns_strict_json() -> None:
 def test_request_validation_is_explicit(payload: object, message: str) -> None:
     with pytest.raises(ValidationError, match=message):
         SupportRequest.from_mapping(payload)
+
+
+def test_frozen_baseline_provenance_identifies_behavior_and_fixture_commits() -> None:
+    provenance_path = (
+        Path(__file__).resolve().parents[1] / "regression" / "baseline_provenance.json"
+    )
+    provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+
+    assert provenance == {
+        "baseline_fixture_commit": "5fd501dd947d9b951d736014cfc2b310efa5e7b0",
+        "baseline_tag": "pre-split-baseline-2026-07-29",
+        "behavior_source_commit": "830756ecb11b4e8161f8dfe1fc75afc346ef4467",
+        "cases": ["B01", "B02", "B03", "B08a", "B08b", "B08c", "B08d"],
+        "fixture_manifest_sha256": (
+            "f54bb2d8311788c07adcf23fc9f038e35702449e4a77a474abea9411246cabcc"
+        ),
+        "fixture_set_sha256": ("81c341b39e711caffc85a444f0c1e4bc1e2d00633474c82e720afeb60def3c4d"),
+        "schema_version": 1,
+    }
 
 
 @pytest.mark.parametrize(

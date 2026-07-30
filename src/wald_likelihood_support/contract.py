@@ -220,6 +220,29 @@ def _display_range_warnings(
     return warnings
 
 
+def _include_value_in_explicit_grid(
+    grid: np.ndarray,
+    value: float,
+) -> np.ndarray:
+    """Include an in-range scientific anchor without changing endpoints or size."""
+
+    if value < float(grid[0]) or value > float(grid[-1]) or np.any(grid == value):
+        return grid
+
+    insertion = int(np.searchsorted(grid, value))
+    candidates = {
+        min(max(insertion - 1, 1), grid.size - 2),
+        min(max(insertion, 1), grid.size - 2),
+    }
+    nearest = min(
+        candidates,
+        key=lambda index: abs((float(grid[index]) * 0.5) - (value * 0.5)),
+    )
+    included = grid.copy()
+    included[nearest] = value
+    return included
+
+
 def _reference_rows(
     *,
     threshold_displays: np.ndarray,
@@ -493,6 +516,10 @@ def calculate(request: SupportRequest) -> SupportResponse:
             display_range_working[1],
             num=request.grid_points,
             dtype=float,
+        )
+        grid_working = _include_value_in_explicit_grid(
+            grid_working,
+            reconstruction.estimate_working,
         )
 
     z_values = np.asarray(
