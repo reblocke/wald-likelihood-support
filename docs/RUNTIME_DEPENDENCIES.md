@@ -7,22 +7,22 @@ construction, standardized distance, normalized relative likelihood, log relativ
 support ratios, pairwise log support ratios, and support intervals. The app imports only
 root-public APIs and does not copy their formulas.
 
-The exact dependency target is the official v0.2.1 prerelease wheel published on 2026-07-30:
+The exact dependency target is the official v0.4.1 prerelease wheel published on 2026-07-30:
 
 ```text
-Release: https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.1
-Wheel:   https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
-SHA-256: dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
-Size:    30077 bytes
-Tag:     v0.2.1
-Commit:  4628a9ce9a6e051ce4b66e18e1d33536346696ac
+Release: https://github.com/reblocke/wald-inference-core/releases/tag/v0.4.1
+Wheel:   https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl
+SHA-256: d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b
+Size:    37939 bytes
+Tag:     v0.4.1
+Commit:  f4613177b6dc81d194aa70762152de2bfa86663b
 License: MIT, Copyright (c) 2026 Brian Locke
 ```
 
-GitHub records this official release as a prerelease. Version 0.2.1 makes finite support endpoints
-fail closed when binary64 quantization cannot represent the requested support boundary within the
-core’s documented tolerance; accurately representable endpoints and the app’s ordinary validated
-results remain unchanged.
+GitHub records this official release as a prerelease. Version 0.4.1 preserves the finite support
+endpoint checks and repairs pairwise support-ratio coherence by delegating the pairwise result to
+the authoritative log-domain primitive. It also rejects unrepresentable natural-scale ratio
+underflow. The focused app adds or copies no numerical formula.
 
 The wheel URL and digest must agree in `pyproject.toml`, `uv.lock`, and `browser-stage.toml` before
 any app release. A local sibling checkout, branch dependency, editable external core, localhost
@@ -50,7 +50,7 @@ metadata, then records file, package, and aggregate hashes.
 
 Direct runtime requirements are:
 
-- `wald-inference` 0.2.1 prerelease, exact URL/checksum above, MIT;
+- `wald-inference` 0.4.1 prerelease, exact URL/checksum above, MIT;
 - NumPy `>=2.2.5,<2.3`, numerical array support required by the core, BSD-3-Clause; and
 - SciPy `>=1.14.1,<1.15` through the core/Pyodide runtime, BSD-3-Clause.
 

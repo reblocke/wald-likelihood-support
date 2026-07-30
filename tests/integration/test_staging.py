@@ -12,9 +12,9 @@ from scripts.stage_browser_packages import StagingError, stage_browser_packages
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORE_URL = (
     "https://github.com/reblocke/wald-inference-core/releases/download/"
-    "v0.2.1/wald_inference-0.2.1-py3-none-any.whl"
+    "v0.4.1/wald_inference-0.4.1-py3-none-any.whl"
 )
-CORE_SHA256 = "dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc"
+CORE_SHA256 = "d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b"
 
 
 def _descriptor(files: list[dict[str, object]]) -> str:
@@ -47,7 +47,7 @@ def test_stage_manifest_records_versions_provenance_files_and_hashes(tmp_path: P
         "role": "app",
         "distribution": "wald-likelihood-support",
         "import_name": "wald_likelihood_support",
-        "version": "0.1.0",
+        "version": "0.1.1",
     }
     assert app["artifact_url"] is None
     assert app["artifact_sha256"] is None
@@ -55,7 +55,7 @@ def test_stage_manifest_records_versions_provenance_files_and_hashes(tmp_path: P
         "role": "core",
         "distribution": "wald-inference",
         "import_name": "wald_inference",
-        "version": "0.2.1",
+        "version": "0.4.1",
     }
     assert core["artifact_url"] == CORE_URL
     assert core["artifact_sha256"] == CORE_SHA256
@@ -75,7 +75,7 @@ def test_lock_uses_the_exact_released_core_wheel_and_checksum() -> None:
     lock = tomllib.loads((PROJECT_ROOT / "uv.lock").read_text(encoding="utf-8"))
     [core] = [package for package in lock["package"] if package["name"] == "wald-inference"]
 
-    assert core["version"] == "0.2.1"
+    assert core["version"] == "0.4.1"
     assert core["source"] == {"url": CORE_URL}
     assert core["wheels"] == [
         {
@@ -103,7 +103,7 @@ def test_stage_fails_on_configured_version_mismatch(tmp_path: Path) -> None:
     config = tmp_path / "browser-stage.toml"
     source = (PROJECT_ROOT / "browser-stage.toml").read_text(encoding="utf-8")
     config.write_text(
-        source.replace('version = "0.2.1"', 'version = "9.9.9"'),
+        source.replace('version = "0.4.1"', 'version = "9.9.9"'),
         encoding="utf-8",
     )
 

@@ -3,6 +3,18 @@
 All notable app changes use a release-oriented record here. Releases follow
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+## [0.1.1] — 2026-07-30
+
+- Publish the navigation-enabled Pages source as a checksum-addressed patch release so the
+  deployed app, annotated tag, and release artifacts resolve to the same commit.
+- Prevent narrow-screen horizontal overflow by allowing result panels to shrink and resizing the
+  Plotly plot only after the results are visible and one animation frame has elapsed.
+- Preserve the v0.1.0 focused response/export contracts while upgrading the sole numerical
+  authority to checksum-pinned `wald-inference` v0.4.1; no Wald or likelihood formula is added or
+  copied locally.
+
 ## [0.1.0] — 2026-07-30
 
 - Initialized the `wald-likelihood-support` repository identity from
@@ -44,3 +56,7 @@ All notable app changes use a release-oriented record here. Releases follow
   structure, and test scaffolding.
 - The template’s arithmetic demonstration carried no scientific authority and is not an app
   release in this repository.
+
+[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/reblocke/wald-likelihood-support/releases/tag/v0.1.0

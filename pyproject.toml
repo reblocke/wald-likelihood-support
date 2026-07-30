@@ -1,6 +1,6 @@
 [project]
 name = "wald-likelihood-support"
-version = "0.1.0"
+version = "0.1.1"
 description = "Static client-side app for normalized Wald relative support reconstructed from a reported estimate and 95% confidence interval"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -28,7 +28,7 @@ classifiers = [
 ]
 dependencies = [
   "numpy>=2.2.5,<2.3",
-  "wald-inference @ https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl#sha256=dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc",
+  "wald-inference @ https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl#sha256=d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b",
 ]
 
 [project.urls]

@@ -5,7 +5,7 @@
 An experimental, static app for exploring normalized Wald relative support reconstructed from a
 reported estimate and two-sided 95% confidence interval.
 
-> **Experimental release:** version 0.1.0 is published as an experimental prerelease, and the
+> **Experimental release:** version 0.1.1 is published as an experimental prerelease, and the
 > client-side app is available at
 > [reblocke.github.io/wald-likelihood-support](https://reblocke.github.io/wald-likelihood-support/).
 > Engineering and hosted-contract verification cannot establish scientific, clinical, or
@@ -99,11 +99,11 @@ formulas. Root-public APIs from the published core prerelease
 [`wald-inference`](https://github.com/reblocke/wald-inference-core) are the sole numerical
 authority.
 
-The current dependency target is the official `wald-inference` v0.2.1 **prerelease** wheel:
+The current dependency target is the official `wald-inference` v0.4.1 **prerelease** wheel:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
-SHA-256 dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
+https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl
+SHA-256 d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b
 ```
 
 The extracted behavior comes from `reblocke/conf_curve_likelihood` at source commit
@@ -162,7 +162,7 @@ See [docs/PRIVACY.md](docs/PRIVACY.md).
 - [Adjacent focused app: compatibility curve](https://reblocke.github.io/compatibility-curve/)
 - [Integrated workbench](https://reblocke.github.io/conf_curve_likelihood/)
 - [Source repository](https://github.com/reblocke/wald-likelihood-support)
-- [wald-inference Core v0.2.1](https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.1)
+- [wald-inference Core v0.4.1](https://github.com/reblocke/wald-inference-core/releases/tag/v0.4.1)
 - [Privacy note](https://github.com/reblocke/wald-likelihood-support/blob/main/docs/PRIVACY.md)
 
 These are static navigation links, not runtime dependencies.
@@ -196,5 +196,5 @@ a runtime dependency. Details are in [docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAG
 ## License and citation
 
 Repository code is MIT licensed, Copyright (c) 2026 Brian Locke. External packages and the cited
-article retain their own licenses. Cite version 0.1.0 and, for exact reproducibility, its tagged
+article retain their own licenses. Cite version 0.1.1 and, for exact reproducibility, its tagged
 commit; see [CITATION.cff](CITATION.cff).

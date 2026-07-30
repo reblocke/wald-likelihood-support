@@ -54,9 +54,9 @@ def test_worker_loads_and_calculates(page: Page, app_url: str) -> None:
     ]:
         expect(page.locator("#plot .annotation-text").filter(has_text=label)).to_be_visible()
     expect(page.locator("#reconstruction-summary")).to_contain_text("1.8")
-    expect(page.locator("#runtime-versions")).to_contain_text("wald-likelihood-support 0.1.0")
-    expect(page.locator("#runtime-versions")).to_contain_text("wald-inference 0.2.1")
-    expect(page.locator("#core-version")).to_have_text("wald-inference core 0.2.1")
+    expect(page.locator("#runtime-versions")).to_contain_text("wald-likelihood-support 0.1.1")
+    expect(page.locator("#runtime-versions")).to_contain_text("wald-inference 0.4.1")
+    expect(page.locator("#core-version")).to_have_text("wald-inference core 0.4.1")
 
 
 def test_additive_case_and_effect_specific_controls(page: Page, app_url: str) -> None:
@@ -285,3 +285,6 @@ def test_mobile_keyboard_and_privacy_smoke(page: Page, app_url: str) -> None:
     assert "1.234567891" not in serialized_requests
     expect(page.locator(".controls")).to_be_visible()
     expect(page.locator(".results")).to_be_visible()
+    assert page.evaluate(
+        "document.documentElement.scrollWidth <= document.documentElement.clientWidth"
+    )
