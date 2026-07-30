@@ -4,7 +4,7 @@ Purpose: experimental static app for normalized approximate Wald relative suppor
 from a reported estimate and two-sided 95% confidence interval.
 
 Status:
-- Version 0.1.0 is an experimental GitHub prerelease with a static Pages deployment at
+- Version 0.1.1 is an experimental GitHub prerelease with a static Pages deployment at
   `https://reblocke.github.io/wald-likelihood-support/`.
 - Engineering tests do not establish scientific, clinical, or regulatory validity.
 
@@ -32,12 +32,12 @@ Exact response:
   `relative_likelihood`, `log_relative_likelihood`.
 
 Core dependency:
-- Official `wald-inference` v0.2.1 prerelease.
+- Official `wald-inference` v0.4.1 prerelease.
 - Wheel:
-  `https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl`
+  `https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl`
 - SHA-256:
-  `dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc`
-- Annotated tag target: `4628a9ce9a6e051ce4b66e18e1d33536346696ac`.
+  `d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b`
+- Annotated tag target: `f4613177b6dc81d194aa70762152de2bfa86663b`.
 
 Provenance:
 - Integrated behavior source: `reblocke/conf_curve_likelihood` commit

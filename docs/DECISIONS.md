@@ -1,5 +1,14 @@
 # Decisions
 
+## 2026-07-30 — Upgrade the numerical authority to repaired Core v0.4.1
+
+The v0.1.1 app patch adopts the annotated `wald-inference` v0.4.1 release at commit
+`f4613177b6dc81d194aa70762152de2bfa86663b`, using the exact wheel SHA-256
+`d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b`. The release makes pairwise
+support comparisons use the authoritative log-domain primitive and rejects unrepresentable
+natural-scale ratio underflow. The app still delegates through root-public APIs and adds or copies
+no Wald, likelihood, support-ratio, or support-interval formula.
+
 ## 2026-07-29 — Keep the app likelihood-support only
 
 The repository answers one question: relative support for candidate effects under a

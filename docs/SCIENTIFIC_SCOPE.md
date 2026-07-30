@@ -96,7 +96,7 @@ MLE-to-bound ratio.
   authority. This app owns request validation, orchestration, response assembly, warnings, display
   choices, and exports; it does not copy numerical formulas.
 
-The dependency target is the official `wald-inference` v0.2.1 prerelease wheel recorded in
+The dependency target is the official `wald-inference` v0.4.1 prerelease wheel recorded in
 `docs/RUNTIME_DEPENDENCIES.md`.
 
 ## Limitations and non-goals

@@ -2,7 +2,7 @@
 
 ## Status
 
-Version 0.1.0 is an experimental app prerelease with a static GitHub Pages deployment. The checks
+Version 0.1.1 is an experimental app prerelease with a static GitHub Pages deployment. The checks
 below are its engineering acceptance requirements and remain required for later releases.
 
 Engineering verification demonstrates implementation consistency. It does not establish that a
@@ -12,12 +12,12 @@ the app is scientifically, clinically, or regulatorily validated.
 ## Numerical authority
 
 All numerical acceptance tests must exercise root-public APIs from the exact `wald-inference`
-v0.2.1 prerelease wheel:
+v0.4.1 prerelease wheel:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
-SHA-256 dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
-Tag target 4628a9ce9a6e051ce4b66e18e1d33536346696ac
+https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl
+SHA-256 d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b
+Tag target f4613177b6dc81d194aa70762152de2bfa86663b
 ```
 
 The app must not maintain an independent formula oracle. Direct root-public core calls are
@@ -113,6 +113,7 @@ Browser acceptance covers:
 - ratio-axis spacing and display-range isolation;
 - exact five-column CSV output;
 - dashboard and figure-only PNG output plus a copyable, scope-correct caption;
+- a post-render 390-pixel viewport regression that requires horizontal document containment;
 - Chromium end-to-end coverage and an initial WebKit smoke; and
 - confirmation that entered synthetic values do not appear in URLs or network requests.
 

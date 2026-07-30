@@ -6,14 +6,14 @@ pyodide_packages = ["numpy", "scipy"]
 role = "app"
 distribution = "wald-likelihood-support"
 import_name = "wald_likelihood_support"
-version = "0.1.0"
+version = "0.1.1"
 source = "project"
 
 [[packages]]
 role = "core"
 distribution = "wald-inference"
 import_name = "wald_inference"
-version = "0.2.1"
+version = "0.4.1"
 source = "external"
-artifact_url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl"
-artifact_sha256 = "dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc"
+artifact_url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl"
+artifact_sha256 = "d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b"
