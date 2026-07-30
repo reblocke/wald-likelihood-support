@@ -5,7 +5,7 @@
 An experimental, static app for exploring normalized Wald relative support reconstructed from a
 reported estimate and two-sided 95% confidence interval.
 
-> **Experimental release:** version 0.1.1 is published as an experimental prerelease, and the
+> **Experimental release:** version 0.1.2 is published as an experimental prerelease, and the
 > client-side app is available at
 > [reblocke.github.io/wald-likelihood-support](https://reblocke.github.io/wald-likelihood-support/).
 > Engineering and hosted-contract verification cannot establish scientific, clinical, or
@@ -196,5 +196,5 @@ a runtime dependency. Details are in [docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAG
 ## License and citation
 
 Repository code is MIT licensed, Copyright (c) 2026 Brian Locke. External packages and the cited
-article retain their own licenses. Cite version 0.1.1 and, for exact reproducibility, its tagged
+article retain their own licenses. Cite version 0.1.2 and, for exact reproducibility, its tagged
 commit; see [CITATION.cff](CITATION.cff).

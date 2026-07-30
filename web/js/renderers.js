@@ -38,6 +38,24 @@ function locationLabel(value) {
   return value.replaceAll("_", " ");
 }
 
+function wrapPlotTitle(text, maxLineLength = 30) {
+  const lines = [];
+  let currentLine = "";
+  for (const word of text.split(/\s+/)) {
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
+    if (currentLine && candidate.length > maxLineLength) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = candidate;
+    }
+  }
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+  return lines.join("<br>");
+}
+
 export function buildSummary(response) {
   const reconstruction = response.reconstruction;
   const nullRow = response.reference_support[0];
@@ -275,10 +293,12 @@ function plotLayout(response, displayOptions) {
   const isLogView = displayOptions.viewMode === "log";
   return {
     title: {
-      text: isLogView
-        ? `Log relative support across ${effect.label.toLowerCase()} values`
-        : `Normalized Wald relative likelihood across ${effect.label.toLowerCase()} values`,
-      font: { size: 20 },
+      text: wrapPlotTitle(
+        isLogView
+          ? `Log relative support across ${effect.label.toLowerCase()} values`
+          : `Normalized Wald relative likelihood across ${effect.label.toLowerCase()} values`,
+      ),
+      font: { size: 18 },
     },
     xaxis: {
       title: { text: effect.label },

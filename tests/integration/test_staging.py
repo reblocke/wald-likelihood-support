@@ -47,7 +47,7 @@ def test_stage_manifest_records_versions_provenance_files_and_hashes(tmp_path: P
         "role": "app",
         "distribution": "wald-likelihood-support",
         "import_name": "wald_likelihood_support",
-        "version": "0.1.1",
+        "version": "0.1.2",
     }
     assert app["artifact_url"] is None
     assert app["artifact_sha256"] is None

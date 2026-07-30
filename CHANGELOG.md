@@ -5,6 +5,14 @@ All notable app changes use a release-oriented record here. Releases follow
 
 ## [Unreleased]
 
+## [0.1.2] — 2026-07-30
+
+- Wrap Plotly figure titles into bounded lines so every supported effect label remains readable
+  inside a 390-pixel viewport and in responsive exports.
+- Strengthen the mobile Chromium regression from document containment to rendered title
+  bounding-box containment.
+- Preserve all numerical, focused-response, privacy, and export contracts.
+
 ## [0.1.1] — 2026-07-30
 
 - Publish the navigation-enabled Pages source as a checksum-addressed patch release so the
@@ -57,6 +65,7 @@ All notable app changes use a release-oriented record here. Releases follow
 - The template’s arithmetic demonstration carried no scientific authority and is not an app
   release in this repository.
 
-[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/reblocke/wald-likelihood-support/releases/tag/v0.1.0

@@ -4,7 +4,7 @@ Purpose: experimental static app for normalized approximate Wald relative suppor
 from a reported estimate and two-sided 95% confidence interval.
 
 Status:
-- Version 0.1.1 is an experimental GitHub prerelease with a static Pages deployment at
+- Version 0.1.2 is an experimental GitHub prerelease with a static Pages deployment at
   `https://reblocke.github.io/wald-likelihood-support/`.
 - Engineering tests do not establish scientific, clinical, or regulatory validity.
 

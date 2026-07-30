@@ -1,5 +1,11 @@
 # Decisions
 
+## 2026-07-30 — Bound responsive plot-title rendering
+
+The app inserts deterministic line breaks into its Plotly title and verifies the rendered SVG
+bounding box at a 390-pixel viewport. This presentation-only correction prevents visually cropped
+titles without changing inputs, numerical responses, textual alternatives, or export data.
+
 ## 2026-07-30 — Upgrade the numerical authority to repaired Core v0.4.1
 
 The v0.1.1 app patch adopts the annotated `wald-inference` v0.4.1 release at commit

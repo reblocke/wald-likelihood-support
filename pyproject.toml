@@ -1,6 +1,6 @@
 [project]
 name = "wald-likelihood-support"
-version = "0.1.1"
+version = "0.1.2"
 description = "Static client-side app for normalized Wald relative support reconstructed from a reported estimate and 95% confidence interval"
 readme = "README.md"
 requires-python = ">=3.12"
