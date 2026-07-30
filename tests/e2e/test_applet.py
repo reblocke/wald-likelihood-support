@@ -55,8 +55,8 @@ def test_worker_loads_and_calculates(page: Page, app_url: str) -> None:
         expect(page.locator("#plot .annotation-text").filter(has_text=label)).to_be_visible()
     expect(page.locator("#reconstruction-summary")).to_contain_text("1.8")
     expect(page.locator("#runtime-versions")).to_contain_text("wald-likelihood-support 0.1.0")
-    expect(page.locator("#runtime-versions")).to_contain_text("wald-inference 0.2.0")
-    expect(page.locator("#core-version")).to_have_text("wald-inference core 0.2.0")
+    expect(page.locator("#runtime-versions")).to_contain_text("wald-inference 0.2.1")
+    expect(page.locator("#core-version")).to_have_text("wald-inference core 0.2.1")
 
 
 def test_additive_case_and_effect_specific_controls(page: Page, app_url: str) -> None:
@@ -109,6 +109,23 @@ def test_validation_error_and_worker_recovery(page: Page, app_url: str) -> None:
 
     expect(page.locator("#runtime-status")).to_have_text("Likelihood-support curve updated.")
     expect(page.locator("#reconstruction-summary")).to_contain_text("1.8")
+
+
+def test_extreme_unrepresentable_support_boundary_is_sanitized(page: Page, app_url: str) -> None:
+    _ready(page, app_url)
+    page.locator("#effect-type").select_option("mean_difference")
+    page.locator("#ci-lower").fill("9.999999999999998e307")
+    page.locator("#ci-upper").fill("1.0000000000000002e308")
+    page.locator("#null-value").fill("0")
+    page.locator("#calculate").click()
+
+    expect(page.locator("#runtime-status")).to_have_attribute("data-state", "error")
+    expect(page.locator("#error-summary")).to_contain_text(
+        "Lower support interval endpoint cannot represent the requested "
+        "log-relative-likelihood cutoff at finite floating-point precision"
+    )
+    expect(page.locator("#error-summary")).not_to_contain_text("Traceback")
+    expect(page.locator("#error-summary")).not_to_contain_text("/Users/")
 
 
 def test_input_errors_link_to_controls(page: Page, app_url: str) -> None:

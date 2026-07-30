@@ -476,14 +476,14 @@ wheels = [
 
 [[package]]
 name = "wald-inference"
-version = "0.2.0"
-source = { url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl" }
+version = "0.2.1"
+source = { url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl" }
 dependencies = [
     { name = "numpy" },
     { name = "scipy" },
 ]
 wheels = [
-    { url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl", hash = "sha256:3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab" },
+    { url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl", hash = "sha256:dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc" },
 ]
 
 [package.metadata]
@@ -513,7 +513,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "numpy", specifier = ">=2.2.5,<2.3" },
-    { name = "wald-inference", url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl" },
+    { name = "wald-inference", url = "https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl" },
 ]
 
 [package.metadata.requires-dev]

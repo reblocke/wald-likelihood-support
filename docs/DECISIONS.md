@@ -20,15 +20,22 @@ The app does not implement or copy Wald, likelihood, support-ratio, or support-i
 It delegates numerical work to root-public `wald_inference` APIs and owns only request validation,
 orchestration, payload assembly, warnings, display, and exports.
 
-The dependency target is the `wald-inference` v0.2.0 prerelease wheel at:
+The initial app release adopts the official `wald-inference` v0.2.1 prerelease wheel published on
+2026-07-30:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl
-SHA-256 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
+https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
+SHA-256 dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
+Tag target 4628a9ce9a6e051ce4b66e18e1d33536346696ac
 ```
 
 Exact-version and checksum agreement across package metadata, lockfile, and browser-stage
 configuration is a release gate.
+
+Core v0.2.1 preserves accurately representable support intervals and fails closed with
+`ValidationError` when finite binary64 endpoint quantization would materially mislabel the
+requested support boundary. The app surfaces that authored message without a traceback; it does
+not replace the core decision with a local approximation.
 
 ## 2026-07-29 — Describe the likelihood as normalized and approximate
 
@@ -98,12 +105,18 @@ The repository was initialized from `reblocke/scientific-applet-template` v0.1.0
 The template supplied creation-time engineering structure only. It is not a runtime framework and
 does not authorize scientific formulas or claims.
 
-## 2026-07-29 — Remain experimental and unreleased
+## 2026-07-29 — Remain experimental through release
 
-Package metadata may carry a working development version, but no app release or deployment is
-claimed. A release requires exact dependency reconciliation, clean-checkout staging, the full
-scientific/contract/browser/privacy/accessibility suite, reviewed provenance, and a hosted smoke
-only after an actual deployment.
+Experimental status remains after an app release. A release requires exact dependency
+reconciliation, clean-checkout staging, the full scientific/contract/browser/privacy/accessibility
+suite, reviewed provenance, and a hosted smoke only after an actual deployment.
+
+## 2026-07-30 — Issue v0.1.0 as an experimental prerelease
+
+Version 0.1.0 is the first app release. It is published as a GitHub prerelease and deployed as a
+client-side GitHub Pages site only after the reviewed pull-request head, annotated tag, release
+workflow, checksums, deployment, and live hosted contract are verified. This release status does
+not change the scientific, clinical, regulatory, or privacy boundaries above.
 
 Future decisions that change scientific meaning, dependencies, validation, privacy, exports,
 accessibility, or maintenance must be appended with a date and rationale.

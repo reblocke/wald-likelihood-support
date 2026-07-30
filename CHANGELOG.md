@@ -1,9 +1,9 @@
 # Changelog
 
-All notable app changes use a release-oriented record here. The app has not issued a release.
-Future releases will follow [Semantic Versioning](https://semver.org/).
+All notable app changes use a release-oriented record here. Releases follow
+[Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.1.0] — 2026-07-30
 
 - Initialized the `wald-likelihood-support` repository identity from
   `reblocke/scientific-applet-template` v0.1.0 at commit
@@ -16,10 +16,14 @@ Future releases will follow [Semantic Versioning](https://semver.org/).
   precision, priors, posteriors, and Bayes factors.
 - Recorded explicit `log L(A)/L(B)` ordering, log-domain overflow behavior, display isolation, and
   the distinction between S−2 and a 2:1 interval.
-- Adopted the `wald-inference` v0.2.0 prerelease wheel:
-  `https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl`,
+- Adopted the official `wald-inference` v0.2.1 prerelease wheel:
+  `https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl`,
   SHA-256
-  `3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab`.
+  `dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc`, whose
+  annotated tag resolves to commit `4628a9ce9a6e051ce4b66e18e1d33536346696ac`.
+- Added scientific and browser regressions requiring an authored `ValidationError`, with no
+  traceback or local path, when adjacent binary64 confidence limits around `1e308` cannot encode
+  the requested support boundary accurately.
 - Recorded behavior provenance from `reblocke/conf_curve_likelihood` commit
   `830756ecb11b4e8161f8dfe1fc75afc346ef4467` and the later frozen B01–B03/B08 fixture commit
   `5fd501dd947d9b951d736014cfc2b310efa5e7b0` / tag
@@ -29,8 +33,9 @@ Future releases will follow [Semantic Versioning](https://semver.org/).
 - Attributed evidential-likelihood and S−2 terminology to Zampieri et al.,
   doi:10.1164/rccm.202504-0809TR, retrieved 2026-04-23, under CC BY-NC-ND 4.0; no article figure,
   table, code, or substantial text was copied.
-- Kept status experimental. This unreleased record does not claim a tag, app release, or hosted
-  deployment.
+- Issued v0.1.0 as an experimental app prerelease with a static GitHub Pages deployment.
+  Engineering and hosted-contract verification do not establish scientific, clinical, or
+  regulatory validity.
 
 ## Creation template v0.1.0 — provenance only — 2026-07-29
 

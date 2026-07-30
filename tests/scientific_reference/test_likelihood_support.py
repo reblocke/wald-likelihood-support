@@ -314,6 +314,28 @@ def test_b08b_working_support_endpoint_clipping_is_explicit() -> None:
     }
 
 
+@pytest.mark.parametrize("criterion", ["s_minus_2", "4_to_1"])
+def test_adjacent_float_extreme_support_boundary_fails_closed(criterion: str) -> None:
+    center = 1e308
+
+    with pytest.raises(
+        ValidationError,
+        match=(
+            "Lower support interval endpoint cannot represent the requested "
+            "log-relative-likelihood cutoff at finite floating-point precision"
+        ),
+    ):
+        _calculate(
+            effect_type="mean_difference",
+            lower=math.nextafter(center, -math.inf),
+            upper=math.nextafter(center, math.inf),
+            null_value=0.0,
+            thresholds=[],
+            support_criterion=criterion,
+            grid_points=101,
+        )
+
+
 def test_b08c_overflow_retains_finite_authoritative_log_result() -> None:
     response = _calculate(
         effect_type="mean_difference",

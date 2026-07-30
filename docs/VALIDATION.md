@@ -2,9 +2,8 @@
 
 ## Status
 
-This repository is experimental. No app release or hosted deployment has been validated or
-claimed. The checks below are acceptance requirements; their presence in this document is not a
-claim that the full suite has passed.
+Version 0.1.0 is an experimental app prerelease with a static GitHub Pages deployment. The checks
+below are its engineering acceptance requirements and remain required for later releases.
 
 Engineering verification demonstrates implementation consistency. It does not establish that a
 source study used a valid Wald model, that a chosen threshold is clinically meaningful, or that
@@ -13,11 +12,12 @@ the app is scientifically, clinically, or regulatorily validated.
 ## Numerical authority
 
 All numerical acceptance tests must exercise root-public APIs from the exact `wald-inference`
-v0.2.0 prerelease wheel:
+v0.2.1 prerelease wheel:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl
-SHA-256 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
+https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
+SHA-256 dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
+Tag target 4628a9ce9a6e051ce4b66e18e1d33536346696ac
 ```
 
 The app must not maintain an independent formula oracle. Direct root-public core calls are
@@ -89,6 +89,8 @@ Required tests cover:
 - strict validation of finite values, positive ratio inputs, paired A/B fields, paired display
   limits, odd grid bounds, and custom ratios greater than 1;
 - finite log-domain retention across ordinary-ratio overflow and underflow;
+- fail-closed `ValidationError` behavior when adjacent binary64 limits near `1e308` cannot
+  represent a requested support boundary accurately;
 - strict JSON with no `NaN`, positive infinity, or negative infinity; and
 - exact response top-level keys and exact five-field grid/CSV order.
 
@@ -104,6 +106,7 @@ every staged file hash, each package hash, and the aggregate bundle hash.
 Browser acceptance covers:
 
 - initial worker load and calculation recovery after a validation error;
+- an authored extreme-boundary `ValidationError` without a traceback or local path;
 - accessible labels, linked errors, visible focus, keyboard operation, and live status;
 - textual reconstruction, interval, reference, and pairwise results independent of the plot;
 - direct estimate, null, threshold, candidate, and interval markers where visible;
@@ -142,4 +145,6 @@ Before any app tag, release, or deployment claim:
 8. record failures, skips, browser/runtime versions, and known limitations; and
 9. only after deployment, run and record a hosted smoke test.
 
-Until those gates are complete, the only truthful status is experimental and unreleased.
+Release and hosted availability must be corroborated by the tagged GitHub release, successful
+workflow records, release checksums, Pages deployment, and a live hosted smoke. Repository copy
+alone is not evidence that those external actions succeeded.

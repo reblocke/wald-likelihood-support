@@ -12,9 +12,9 @@ from scripts.stage_browser_packages import StagingError, stage_browser_packages
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORE_URL = (
     "https://github.com/reblocke/wald-inference-core/releases/download/"
-    "v0.2.0/wald_inference-0.2.0-py3-none-any.whl"
+    "v0.2.1/wald_inference-0.2.1-py3-none-any.whl"
 )
-CORE_SHA256 = "3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab"
+CORE_SHA256 = "dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc"
 
 
 def _descriptor(files: list[dict[str, object]]) -> str:
@@ -55,7 +55,7 @@ def test_stage_manifest_records_versions_provenance_files_and_hashes(tmp_path: P
         "role": "core",
         "distribution": "wald-inference",
         "import_name": "wald_inference",
-        "version": "0.2.0",
+        "version": "0.2.1",
     }
     assert core["artifact_url"] == CORE_URL
     assert core["artifact_sha256"] == CORE_SHA256
@@ -75,7 +75,7 @@ def test_lock_uses_the_exact_released_core_wheel_and_checksum() -> None:
     lock = tomllib.loads((PROJECT_ROOT / "uv.lock").read_text(encoding="utf-8"))
     [core] = [package for package in lock["package"] if package["name"] == "wald-inference"]
 
-    assert core["version"] == "0.2.0"
+    assert core["version"] == "0.2.1"
     assert core["source"] == {"url": CORE_URL}
     assert core["wheels"] == [
         {
@@ -103,7 +103,7 @@ def test_stage_fails_on_configured_version_mismatch(tmp_path: Path) -> None:
     config = tmp_path / "browser-stage.toml"
     source = (PROJECT_ROOT / "browser-stage.toml").read_text(encoding="utf-8")
     config.write_text(
-        source.replace('version = "0.2.0"', 'version = "9.9.9"'),
+        source.replace('version = "0.2.1"', 'version = "9.9.9"'),
         encoding="utf-8",
     )
 

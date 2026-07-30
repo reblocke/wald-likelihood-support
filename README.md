@@ -5,8 +5,10 @@
 An experimental, static app for exploring normalized Wald relative support reconstructed from a
 reported estimate and two-sided 95% confidence interval.
 
-> **Experimental status:** this repository has not issued an app release and does not claim a
-> production deployment. Engineering verification cannot establish scientific, clinical, or
+> **Experimental release:** version 0.1.0 is published as an experimental prerelease, and the
+> client-side app is available at
+> [reblocke.github.io/wald-likelihood-support](https://reblocke.github.io/wald-likelihood-support/).
+> Engineering and hosted-contract verification cannot establish scientific, clinical, or
 > regulatory validity.
 
 ## Focused question
@@ -97,11 +99,11 @@ formulas. Root-public APIs from the published core prerelease
 [`wald-inference`](https://github.com/reblocke/wald-inference-core) are the sole numerical
 authority.
 
-The current dependency target is the `wald-inference` v0.2.0 **prerelease** wheel:
+The current dependency target is the official `wald-inference` v0.2.1 **prerelease** wheel:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl
-SHA-256 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
+https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
+SHA-256 dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
 ```
 
 The extracted behavior comes from `reblocke/conf_curve_likelihood` at source commit
@@ -169,8 +171,9 @@ make verify
 ```
 
 `make serve` starts a local static server. A clean checkout must be able to stage and verify
-without a sibling source repository. No passing command should be interpreted as evidence that an
-app release or hosted deployment exists.
+without a sibling source repository. A passing local command alone is not evidence that a release
+or hosted deployment exists; verify the corresponding GitHub release, Pages deployment, and live
+contract.
 
 ## Creation provenance
 
@@ -182,5 +185,5 @@ a runtime dependency. Details are in [docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAG
 ## License and citation
 
 Repository code is MIT licensed, Copyright (c) 2026 Brian Locke. External packages and the cited
-article retain their own licenses. Until an app release exists, cite the exact repository commit
-used; see [CITATION.cff](CITATION.cff).
+article retain their own licenses. Cite version 0.1.0 and, for exact reproducibility, its tagged
+commit; see [CITATION.cff](CITATION.cff).

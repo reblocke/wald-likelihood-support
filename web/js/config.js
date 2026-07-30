@@ -1,6 +1,6 @@
 export const APP_TITLE = "Wald Likelihood Support";
 export const APP_VERSION = "0.1.0";
-export const CORE_VERSION = "0.2.0";
+export const CORE_VERSION = "0.2.1";
 export const PYODIDE_VERSION = "0.29.3";
 export const REPOSITORY_URL =
   "https://github.com/reblocke/wald-likelihood-support";

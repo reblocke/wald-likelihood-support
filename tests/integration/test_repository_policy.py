@@ -87,7 +87,7 @@ def test_scientific_dependency_is_release_url_only() -> None:
     stage = (PROJECT_ROOT / "browser-stage.toml").read_text(encoding="utf-8")
     dependency_text = f"{pyproject}\n{stage}"
 
-    assert "releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl" in dependency_text
+    assert "releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl" in dependency_text
     assert re.search(r"#sha256=[0-9a-f]{64}", pyproject)
     for forbidden in [
         "../wald-inference",

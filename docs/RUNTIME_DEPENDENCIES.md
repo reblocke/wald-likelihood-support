@@ -7,17 +7,22 @@ construction, standardized distance, normalized relative likelihood, log relativ
 support ratios, pairwise log support ratios, and support intervals. The app imports only
 root-public APIs and does not copy their formulas.
 
-The exact dependency target is the v0.2.0 prerelease wheel published on 2026-07-29:
+The exact dependency target is the official v0.2.1 prerelease wheel published on 2026-07-30:
 
 ```text
-Release: https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.0
-Wheel:   https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl
-SHA-256: 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
-Size:    29019 bytes
-Tag:     v0.2.0
-Commit:  7de706b80127ed708b9f53a5be042750a14acdad
+Release: https://github.com/reblocke/wald-inference-core/releases/tag/v0.2.1
+Wheel:   https://github.com/reblocke/wald-inference-core/releases/download/v0.2.1/wald_inference-0.2.1-py3-none-any.whl
+SHA-256: dcede569ff923061313635f2f680de9e3f8d1ea9415ef1b9391a0756023212fc
+Size:    30077 bytes
+Tag:     v0.2.1
+Commit:  4628a9ce9a6e051ce4b66e18e1d33536346696ac
 License: MIT, Copyright (c) 2026 Brian Locke
 ```
+
+GitHub records this official release as a prerelease. Version 0.2.1 makes finite support endpoints
+fail closed when binary64 quantization cannot represent the requested support boundary within the
+core’s documented tolerance; accurately representable endpoints and the app’s ordinary validated
+results remain unchanged.
 
 The wheel URL and digest must agree in `pyproject.toml`, `uv.lock`, and `browser-stage.toml` before
 any app release. A local sibling checkout, branch dependency, editable external core, localhost
@@ -45,7 +50,7 @@ metadata, then records file, package, and aggregate hashes.
 
 Direct runtime requirements are:
 
-- `wald-inference` 0.2.0 prerelease, exact URL/checksum above, MIT;
+- `wald-inference` 0.2.1 prerelease, exact URL/checksum above, MIT;
 - NumPy `>=2.2.5,<2.3`, numerical array support required by the core, BSD-3-Clause; and
 - SciPy `>=1.14.1,<1.15` through the core/Pyodide runtime, BSD-3-Clause.
 

@@ -2,10 +2,11 @@
 
 ## Status
 
-Maintenance status: **experimental development**.
+Maintenance status: **experimental released software**.
 
-No app release or production deployment is claimed. The package version in working metadata is a
-development identity until a reviewed commit passes every release gate.
+Version 0.1.0 is the first experimental app prerelease and is deployed as a static GitHub Pages
+site. Its release and hosted availability do not establish scientific, clinical, or regulatory
+validity.
 
 ## Ownership
 
@@ -64,8 +65,8 @@ At least at each dependency or scientific-core change, review:
 
 ## Deprecation
 
-Because no app release or deployment currently exists, there is no supported public version to
-deprecate. If a future released version is superseded:
+Version 0.1.0 is the first public experimental version. If it or a future released version is
+superseded:
 
 - announce the status in the README, changelog, repository description, and visible app;
 - identify the last supported version and successor;

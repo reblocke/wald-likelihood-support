@@ -1,13 +1,16 @@
 cff-version: 1.2.0
 message: >-
-  No software release has been issued. Cite the exact repository commit used
-  and consult the scientific-reference provenance in the documentation.
+  Cite version 0.1.0 and consult the scientific-reference provenance and
+  limitations in the documentation.
 title: Wald Likelihood Support
 type: software
+version: 0.1.0
+date-released: 2026-07-30
 authors:
   - family-names: Locke
     given-names: Brian
 repository-code: https://github.com/reblocke/wald-likelihood-support
+url: https://reblocke.github.io/wald-likelihood-support/
 abstract: >-
   Experimental static app for normalized approximate Wald relative support
   reconstructed from a reported estimate and two-sided 95% confidence interval.
