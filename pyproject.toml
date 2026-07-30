@@ -1,14 +1,41 @@
 [project]
-name = "scientific-applet-template-package"
+name = "wald-likelihood-support"
 version = "0.1.0"
-description = "Reusable client-side Python scaffold for a focused scientific applet"
+description = "Static client-side app for normalized Wald relative support reconstructed from a reported estimate and 95% confidence interval"
 readme = "README.md"
 requires-python = ">=3.12"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
   { name = "Brian Locke" },
 ]
-dependencies = []
+maintainers = [
+  { name = "Brian Locke" },
+]
+keywords = [
+  "relative-likelihood",
+  "support-interval",
+  "confidence-interval",
+  "wald-inference",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Typing :: Typed",
+]
+dependencies = [
+  "numpy>=2.2.5,<2.3",
+  "wald-inference @ https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl#sha256=3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab",
+]
+
+[project.urls]
+Repository = "https://github.com/reblocke/wald-likelihood-support"
+Issues = "https://github.com/reblocke/wald-likelihood-support/issues"
+Documentation = "https://github.com/reblocke/wald-likelihood-support/blob/main/docs/SCIENTIFIC_SCOPE.md"
+Hosted = "https://reblocke.github.io/wald-likelihood-support/"
 
 [dependency-groups]
 dev = [
@@ -25,9 +52,13 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+wald_likelihood_support = ["py.typed"]
 
 [tool.pytest.ini_options]
 minversion = "8.0"
@@ -47,4 +78,4 @@ src = ["src", "scripts", "tests"]
 select = ["E", "F", "I", "UP", "B"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["template_applet"]
+known-first-party = ["wald_likelihood_support"]

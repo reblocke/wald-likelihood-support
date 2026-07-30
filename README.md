@@ -1,150 +1,185 @@
-# Scientific Applet Template
+# Wald Likelihood Support
 
-[![CI](https://github.com/reblocke/scientific-applet-template/actions/workflows/ci.yml/badge.svg)](https://github.com/reblocke/scientific-applet-template/actions/workflows/ci.yml)
+[![CI](https://github.com/reblocke/wald-likelihood-support/actions/workflows/ci.yml/badge.svg)](https://github.com/reblocke/wald-likelihood-support/actions/workflows/ci.yml)
 
-Reusable client-side Python scaffold for a focused scientific applet
+An experimental, static app for exploring normalized Wald relative support reconstructed from a
+reported estimate and two-sided 95% confidence interval.
 
-This is an engineering template, not a statistical package or validated scientific tool. Its
-two-number arithmetic demonstration exists only to prove the complete Python-to-worker-to-browser
-path. Replace that demonstration and complete the author-action prompts before making a scientific
-claim.
+> **Experimental status:** this repository has not issued an app release and does not claim a
+> production deployment. Engineering verification cannot establish scientific, clinical, or
+> regulatory validity.
 
-## Create an app
+## Focused question
 
-Use GitHub’s “Use this template” control, clone the new repository, then run the guarded
-initializer once:
+Under a one-parameter Wald reconstruction of a reported estimate and 95% confidence interval, how
+much relative support do the data provide for selected candidate effect values?
 
-```bash
-uv sync --locked
-uv run python scripts/initialize_template.py \
-  --repository-name compatibility-curve \
-  --distribution-name compatibility-curve \
-  --import-name compatibility_curve \
-  --app-title "Wald Compatibility Curve" \
-  --description "A focused client-side scientific applet"
+The app is intended for researchers, educators, reviewers, and scientifically trained readers who
+need a transparent sensitivity display from aggregate published results. It is not clinical
+decision support.
+
+## Inputs and outputs
+
+The focused request accepts:
+
+- an effect-measure key supported by `wald_inference`;
+- a lower and upper two-sided 95% confidence limit;
+- an optional point estimate, used to validate the confidence-interval reconstruction;
+- an optional null value and zero or more reference thresholds;
+- an optional paired candidate A and candidate B;
+- one support-interval criterion: S−2, 2:1, 4:1, 8:1, or a custom ratio greater than 1;
+- an optional plausible display range;
+- an odd grid size from 101 through 1601 points; and
+- browser-only logarithmic or linear spacing for natural-scale ratio labels.
+
+The strict response is deliberately limited to:
+
+```text
+meta
+reconstruction
+grid
+support_interval
+reference_support
+pairwise_comparisons
+warnings
 ```
 
-The command validates names, updates package paths and repository metadata, removes
-template-maintainer-only checks, writes an ignored replacement report, and fails if any required
-template identity remains. It never enters or edits `.git`. A second run is refused unless
-`--force` is explicit.
+The grid and CSV export use exactly five aligned fields:
 
-Review the diff, complete every `AUTHOR ACTION REQUIRED` prompt, then verify:
-
-```bash
-uv sync --locked
-uv run playwright install chromium webkit
-make verify
+```text
+effect_display
+effect_working
+standardized_distance
+relative_likelihood
+log_relative_likelihood
 ```
 
-The initializer updates the existing lockfile identity, so `uv sync --locked` works immediately.
-If dependencies are added or changed later, intentionally run `uv lock`, review `uv.lock`, and
-rerun the full verification suite.
+Textual summaries accompany the plot so that no result depends on color or graphics alone.
+Explicit local actions provide the five-column CSV, dashboard PNG, figure-only PNG, and copyable
+caption.
 
-Detailed initialization and replacement guidance is in
-[docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAGE.md).
+## Interpretation boundary
+
+The display is a **normalized, approximate Wald relative-likelihood reconstruction**. It is
+normalized to peak at the confidence-interval-implied estimate. It is not the exact fitted-model
+profile likelihood from the original analysis, and it does not recover the original model,
+variance estimator, study design, or raw data.
+
+Pairwise output uses the explicit order `log L(A)/L(B)`: a positive value favors candidate A, a
+negative value favors candidate B, and zero indicates equal support under the reconstruction.
+The finite log-domain comparison remains authoritative when an ordinary A:B ratio overflows or
+underflows.
+
+S−2 is an evidential support criterion corresponding to an MLE-to-bound ratio of `exp(2)`, about
+7.4:1. It is not a 2:1 support interval. The separately selectable 2:1, 4:1, and 8:1 criteria use
+their stated MLE-to-bound ratios.
+
+## Deliberate non-goals
+
+This focused app does not provide:
+
+- compatibility curves or p-values as primary outputs;
+- critical-effect or power calculations;
+- repeated-study design metrics, selection rules, Type S, or Type M;
+- information multipliers or precision targets;
+- priors, posterior probabilities, Bayes factors, or Bayesian inference;
+- clinical thresholds, treatment recommendations, diagnosis, or medical-device functionality; or
+- evidence that a reported interval is truly Wald-based beyond the documented reconstruction
+  checks.
+
+Reference thresholds are user-supplied comparison markers. The app does not validate their
+scientific or clinical importance.
+
+## Numerical authority and provenance
+
+The app does not implement or copy Wald, relative-likelihood, support-ratio, or support-interval
+formulas. Root-public APIs from the published core prerelease
+[`wald-inference`](https://github.com/reblocke/wald-inference-core) are the sole numerical
+authority.
+
+The current dependency target is the `wald-inference` v0.2.0 **prerelease** wheel:
+
+```text
+https://github.com/reblocke/wald-inference-core/releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl
+SHA-256 3d1cd3f3c48478bcd898a60c7ac0c645e808b5f98bd6f843d0c75ef954cec2ab
+```
+
+The app’s migration anchors come from the frozen B01–B03 and likelihood-relevant B08 behavior in
+`reblocke/conf_curve_likelihood` at commit
+`830756ecb11b4e8161f8dfe1fc75afc346ef4467`. See
+[docs/VALIDATION.md](docs/VALIDATION.md) for tolerances and limits.
+
+Terminology for evidential likelihood, likelihood ratios, support, and S−2 intervals is attributed
+to Zampieri and colleagues:
+
+> Zampieri FG, Cahusac PMB, Maia IS, Yehya N, Meyer NJ, Li F, Harhay MO. Trial Analysis and
+> Interpretation in Critical Care Using the Evidential (Likelihood) Approach: Rationale and
+> Practical Considerations. *American Journal of Respiratory and Critical Care Medicine*.
+> 2025;211(9):1610–1621. doi:
+> [10.1164/rccm.202504-0809TR](https://doi.org/10.1164/rccm.202504-0809TR).
+
+The repository recorded retrieval on 2026-04-23. The article is distributed under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). No article figure, table,
+code, or substantial text is copied into this repository; the citation does not make the paper a
+runtime dependency or imply that this CI-based reconstruction is an exact model likelihood.
 
 ## Architecture
 
 ```text
 browser form
-  -> dedicated Web Worker
-  -> verified generated Python bundle
-  -> template_applet.contract.calculate_json
+  -> dedicated same-origin Web Worker
+  -> integrity-verified generated Python bundle
+  -> wald_likelihood_support.contract.calculate_json
+  -> root-public wald_inference APIs
   -> strict JSON response
-  -> textual summary + Plotly hook + explicit exports
+  -> accessible text + Plotly figure + explicit local exports
 ```
 
-- `src/template_applet/` is the only source-of-truth Python package.
-- `browser-stage.toml` lists the app and zero or more optional, exact-version external packages.
-- `scripts/stage_browser_packages.py` discovers installed packages from the locked environment,
-  removes stale stage output, and emits file, package, and bundle SHA-256 hashes.
-- `web/pyodide_worker.js` verifies the manifest and every staged byte before loading Python. The
-  main thread can terminate and restart the worker after a failure.
-- `web/js/` separates inputs, runtime lifecycle, result rendering, exports, and accessibility.
-- `web/assets/py/` is generated, ignored, and never hand-edited.
-
-The template is copied at project creation time; it is not a shared runtime UI dependency.
-
-## Optional external scientific core
-
-The default stage has no external core. Add an installed, locked, pure-Python package to
-`browser-stage.toml`:
-
-```toml
-pyodide_packages = ["numpy", "scipy"]
-
-[[packages]]
-role = "core"
-distribution = "example-scientific-core"
-import_name = "example_scientific_core"
-version = "1.2.3"
-source = "external"
-artifact_url = "https://github.com/OWNER/REPO/releases/download/v1.2.3/example.whl"
-artifact_sha256 = "REPLACE_WITH_THE_64_CHARACTER_SHA256"
-```
-
-Pin the same artifact in `pyproject.toml` and `uv.lock`. Staging fails on a version mismatch,
-lock mismatch, artifact provenance mismatch, modified installed file, symlink, or unsafe package
-shape. External packages must be pure Python, use one regular top-level package, and expose
-`__version__`. List any Pyodide-provided dependencies in `pyodide_packages`.
-
-## Browser and exports
-
-The minimal responsive shell includes labels, linked error summaries, visible focus, an
-`aria-live` status, a keyboard-operable advanced-controls pattern, a textual result, a table, and
-a plot hook. Export helpers provide:
-
-- CSV from an explicit column list;
-- dashboard PNG;
-- figure-only/manuscript PNG;
-- copyable caption;
-- deterministic filename slugs.
-
-The example exports only the three displayed demonstration rows. Downstream apps must explicitly
-define their own columns, figure dimensions, caption, and scope.
+- `src/wald_likelihood_support/` is the app source of truth.
+- `browser-stage.toml` binds the app and core package identities and artifact provenance.
+- `scripts/stage_browser_packages.py` stages installed packages and emits file, package, and
+  aggregate SHA-256 hashes.
+- `web/pyodide_worker.js` verifies staged bytes before importing Python.
+- `web/assets/py/` is generated, ignored, and never edited by hand.
 
 ## Privacy
 
-The application is static and client-side. It has no backend, database, telemetry, cookies,
-browser storage, or input-bearing URL state. Inputs exist only in page and worker memory.
-Static CDN requests load pinned runtime libraries and do not contain user values. See
-[docs/PRIVACY.md](docs/PRIVACY.md).
+Computation is client-side. There is no backend, database, account, telemetry, cookie, persistent
+browser storage, input-bearing URL, or automatic upload. Values exist only in the page and worker
+memory unless the user explicitly downloads or copies an output.
 
-## Commands
+The app neither requires nor is designed to receive patient-level data. Do not enter protected
+health information or other identifying data. Static CDN requests do not contain entered values,
+although CDN operators receive ordinary request metadata such as IP address and browser headers.
+See [docs/PRIVACY.md](docs/PRIVACY.md).
+
+## Local development
 
 ```bash
 uv sync --locked
+uv run playwright install chromium webkit
 make stage-web
-make fmt
 make fmt-check
 make lint
 make test
 make e2e
 make e2e-webkit-smoke
 make verify
-make serve
-make clean
 ```
 
-`make verify` expects Chromium and WebKit to have been installed. CI runs the same targets. Pages
-deploys the staged `web/` directory, and tagged releases rerun all checks before publishing a
-deterministic source archive, browser-stage manifest, and checksums.
+`make serve` starts a local static server. A clean checkout must be able to stage and verify
+without a sibling source repository. No passing command should be interpreted as evidence that an
+app release or hosted deployment exists.
 
-## Author checklist
+## Creation provenance
 
-Before calling an initialized app complete:
-
-1. Define the scientific question, assumptions, input/output units, formula authorities,
-   validation targets, limitations, and non-goals.
-2. Replace the demo request, response, computation, chart, table, caption, and fixtures.
-3. Decide whether an external released scientific core is required and pin it exactly.
-4. Replace generic browser copy without overstating validation or clinical readiness.
-5. Verify privacy, accessibility, strict JSON, Chromium, WebKit, cold initialization, and Pages.
-6. Update citation, license applicability, hosted URL, maintenance status, decision records, and
-   release notes.
+This repository was initialized from `reblocke/scientific-applet-template` v0.1.0 at exact commit
+`a360bde95c192d8de4f9a3b531e73600ebf3d8b8` and tree
+`6a6c8c33cbef24b5dcbd35706d2292d9d3e5e359`. The template was a creation-time scaffold and is not
+a runtime dependency. Details are in [docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAGE.md).
 
 ## License and citation
 
-Code is MIT licensed. Copyright (c) 2026 Brian Locke. `CITATION.cff` is valid template metadata,
-but its author-action message must be resolved for the initialized scientific app.
+Repository code is MIT licensed, Copyright (c) 2026 Brian Locke. External packages and the cited
+article retain their own licenses. Until an app release exists, cite the exact repository commit
+used; see [CITATION.cff](CITATION.cff).

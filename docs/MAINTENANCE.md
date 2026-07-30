@@ -2,37 +2,73 @@
 
 ## Status
 
-Template status: active engineering scaffold, version 0.1.0.
+Maintenance status: **experimental development**.
 
-AUTHOR ACTION REQUIRED after initialization: choose and state one maintenance status such as
-experimental, active, maintenance-only, archived, or superseded.
+No app release or production deployment is claimed. The package version in working metadata is a
+development identity until a reviewed commit passes every release gate.
 
 ## Ownership
 
 Maintainer: Brian Locke (`@reblocke`). Use repository issues and pull requests for public project
 coordination.
 
-AUTHOR ACTION REQUIRED: confirm downstream ownership, review responsibilities, and a contact path.
+Scientific, code, privacy, accessibility, and release review currently remain with the
+maintainer. Security or privacy-sensitive reports should avoid real input values and PHI; use a
+minimal synthetic reproduction through the repository’s issue or pull-request workflow.
 
 ## Dependency updates
 
 Review Pyodide, Plotly, Python, uv, Ruff, pytest, Hypothesis, Playwright, and GitHub Actions
-updates deliberately. For any external scientific core:
+updates deliberately. `wald-inference` is scientific authority, not an incidental dependency.
+For a core update:
 
 1. review its release notes and scientific changes;
-2. update the exact package version and artifact checksum;
-3. regenerate and review `uv.lock`;
-4. run strict JSON, frozen scientific fixtures, staging, Chromium, and WebKit validation;
-5. record the adopted core version in docs, UI, and release notes.
+2. confirm that every used function remains root-public and behaviorally documented;
+3. update the exact package version, wheel URL, and SHA-256 together;
+4. regenerate and review `uv.lock`;
+5. reconcile `pyproject.toml`, `uv.lock`, and `browser-stage.toml`;
+6. run strict JSON, B01–B03/B08, generic-support, clean-stage, Chromium, and WebKit validation; and
+7. record the adopted core version, artifact, checksum, and scientific impact in docs and the
+   changelog.
+
+Do not replace a prerelease with a differently built artifact under the same version. A checksum
+change requires explicit provenance review and a new authoritative release artifact.
 
 ## Release
 
-Use a reviewed pull request. After the exact merge commit is verified, create an annotated
-semantic-version tag. The release workflow reruns the full suite and publishes a prerelease with
-a deterministic source archive, browser-stage manifest, and SHA-256 checksums. Promote a release
-only after hosted Pages and portfolio-level validation are complete.
+Releases require a reviewed pull request and an exact expected head. Before tagging:
+
+1. verify a clean checkout and the intended semantic version;
+2. complete every gate in `docs/VALIDATION.md`;
+3. verify dependency and stage provenance without a sibling repository;
+4. review public scientific, clinical-scope, privacy, accessibility, citation, and license copy;
+5. record exact commands, runtime/browser versions, results, limitations, and skipped checks; and
+6. confirm that the changelog and `CITATION.cff` describe the intended release rather than a plan.
+
+Only then create an annotated tag on the reviewed merge commit. Deployment is a separate action.
+Do not describe a hosted app as available until an actual deployment has completed and a hosted
+smoke has passed.
+
+## Routine review
+
+At least at each dependency or scientific-core change, review:
+
+- open security and dependency advisories;
+- browser/runtime compatibility;
+- staged artifact and CDN integrity values;
+- frozen and property-based scientific tests;
+- strict response and exact CSV schemas;
+- privacy network/storage scans;
+- keyboard, focus, live-status, and text-equivalent behavior; and
+- links, citation metadata, maintenance status, and known limitations.
 
 ## Deprecation
 
-AUTHOR ACTION REQUIRED: define how users will be warned, how long the hosted app will remain
-available, and where a successor is documented. Do not silently redirect or delete an old URL.
+Because no app release or deployment currently exists, there is no supported public version to
+deprecate. If a future released version is superseded:
+
+- announce the status in the README, changelog, repository description, and visible app;
+- identify the last supported version and successor;
+- retain reproducibility metadata and release artifacts where safe;
+- provide a reasonable transition period appropriate to actual use; and
+- never silently redirect, delete, or rewrite scientific history.

@@ -32,8 +32,12 @@ function downloadBlob(blob, filename) {
 
 function dataUrlToBlob(dataUrl) {
   const [metadata, encoded] = dataUrl.split(",", 2);
-  const mime = metadata.match(/^data:([^;]+);base64$/)?.[1] || "application/octet-stream";
-  const bytes = Uint8Array.from(atob(encoded), (character) => character.charCodeAt(0));
+  const mime =
+    metadata.match(/^data:([^;]+);base64$/)?.[1] ||
+    "application/octet-stream";
+  const bytes = Uint8Array.from(atob(encoded), (character) =>
+    character.charCodeAt(0),
+  );
   return new Blob([bytes], { type: mime });
 }
 
@@ -53,59 +57,117 @@ function loadImage(dataUrl) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.addEventListener("load", () => resolve(image), { once: true });
-    image.addEventListener("error", () => reject(new Error("Could not render the plot image.")), {
-      once: true,
-    });
+    image.addEventListener(
+      "error",
+      () => reject(new Error("Could not render the plot image.")),
+      { once: true },
+    );
     image.src = dataUrl;
   });
 }
 
-export function exportCsv(rows, appTitle) {
+function wrapText(context, text, x, y, maximumWidth, lineHeight) {
+  const words = text.split(/\s+/);
+  let line = "";
+  let currentY = y;
+  for (const word of words) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (line && context.measureText(candidate).width > maximumWidth) {
+      context.fillText(line, x, currentY);
+      line = word;
+      currentY += lineHeight;
+    } else {
+      line = candidate;
+    }
+  }
+  if (line) {
+    context.fillText(line, x, currentY);
+  }
+}
+
+export function exportCsv(response, appTitle) {
   const columns = [
-    { key: "label", label: "Label" },
-    { key: "value", label: "Value" },
+    { key: "effect_display", label: "effect_display" },
+    { key: "effect_working", label: "effect_working" },
+    { key: "standardized_distance", label: "standardized_distance" },
+    { key: "relative_likelihood", label: "relative_likelihood" },
+    { key: "log_relative_likelihood", label: "log_relative_likelihood" },
   ];
+  const rows = response.grid.effect_display.map((effectDisplay, index) => ({
+    effect_display: effectDisplay,
+    effect_working: response.grid.effect_working[index],
+    standardized_distance: response.grid.standardized_distance[index],
+    relative_likelihood: response.grid.relative_likelihood[index],
+    log_relative_likelihood: response.grid.log_relative_likelihood[index],
+  }));
   const csv = csvFromRows(columns, rows);
   downloadBlob(
     new Blob([csv], { type: "text/csv;charset=utf-8" }),
-    `${filenameSlug(appTitle)}-results.csv`,
+    `${filenameSlug(appTitle)}.csv`,
   );
 }
 
-export async function exportFigurePng(plotElement, appTitle) {
+export async function exportManuscriptPng(plotElement, appTitle) {
   const dataUrl = await globalThis.Plotly.toImage(plotElement, {
     format: "png",
-    height: 1200,
-    scale: 1,
-    width: 1600,
+    height: 1000,
+    scale: 2,
+    width: 1400,
   });
-  downloadBlob(dataUrlToBlob(dataUrl), `${filenameSlug(appTitle)}-figure.png`);
+  downloadBlob(
+    dataUrlToBlob(dataUrl),
+    `${filenameSlug(appTitle)}-manuscript.png`,
+  );
 }
 
 export async function exportDashboardPng(plotElement, summary, appTitle) {
   const plotDataUrl = await globalThis.Plotly.toImage(plotElement, {
     format: "png",
-    height: 800,
+    height: 900,
     scale: 1,
-    width: 1200,
+    width: 1440,
   });
   const plotImage = await loadImage(plotDataUrl);
   const canvas = document.createElement("canvas");
-  canvas.width = 1400;
-  canvas.height = 1100;
+  canvas.width = 1600;
+  canvas.height = 1200;
   const context = canvas.getContext("2d");
   context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "#17202a";
-  context.font = "700 42px system-ui";
-  context.fillText(appTitle, 80, 80, 1240);
-  context.font = "26px system-ui";
-  context.fillText(summary, 80, 140, 1240);
-  context.drawImage(plotImage, 100, 210, 1200, 800);
+  context.font = "700 44px system-ui";
+  context.fillText(appTitle, 80, 76, 1440);
+  context.font = "25px system-ui";
+  wrapText(context, summary, 80, 130, 1440, 34);
+  context.drawImage(plotImage, 80, 260, 1440, 900);
   const blob = await canvasBlob(canvas);
   downloadBlob(blob, `${filenameSlug(appTitle)}-dashboard.png`);
 }
 
+function fallbackCopy(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) {
+    throw new Error("The browser could not copy the caption.");
+  }
+}
+
 export async function copyCaption(caption) {
-  await navigator.clipboard.writeText(caption);
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(caption);
+      return;
+    } catch {
+      fallbackCopy(caption);
+      return;
+    }
+  }
+  fallbackCopy(caption);
 }

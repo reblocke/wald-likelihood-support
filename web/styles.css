@@ -27,7 +27,9 @@ a {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -113,6 +115,11 @@ h1 {
   text-transform: uppercase;
 }
 
+.lede {
+  max-width: 62rem;
+  font-size: 1.08rem;
+}
+
 .runtime-card,
 .controls,
 .results,
@@ -171,21 +178,50 @@ details {
   margin-block: 1rem;
 }
 
+.field-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
 label {
   font-weight: 750;
 }
 
-input {
+input,
+select,
+textarea {
   width: 100%;
-  min-height: 2.75rem;
   border: 2px solid var(--border);
   border-radius: 0.4rem;
   padding: 0.55rem 0.65rem;
   background: #fff;
 }
 
-input[aria-invalid="true"] {
+input,
+select {
+  min-height: 2.75rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
   border-color: var(--danger);
+}
+
+.optional,
+.field-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.field-note {
+  margin-bottom: 0.75rem;
 }
 
 details {
@@ -231,7 +267,31 @@ summary {
 
 .plot {
   width: 100%;
-  min-height: 26rem;
+  min-height: 32rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.6rem;
+}
+
+.summary-grid div {
+  border-left: 0.25rem solid var(--border);
+  padding: 0.5rem 0.75rem;
+  background: #f7f9f9;
+}
+
+.summary-grid dt {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
+.summary-grid dd {
+  margin: 0.2rem 0 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .table-wrap {
@@ -257,9 +317,42 @@ td {
   text-align: left;
 }
 
+.warning-panel {
+  margin-block: 1.25rem;
+  border-left: 0.35rem solid #b7791f;
+  padding: 0.8rem 1rem;
+  background: #fff9e8;
+}
+
+.caption-text,
+.comparison-sentence {
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.85rem;
+  background: #f7f9f9;
+}
+
+.comparison-sentence:empty {
+  display: none;
+}
+
+.related-tools {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  white-space: nowrap !important;
+}
+
 footer {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   padding-block: 1rem 2rem;
 }
@@ -281,6 +374,11 @@ footer h2 {
 
   .controls {
     position: static;
+  }
+
+  .field-pair,
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 }
 

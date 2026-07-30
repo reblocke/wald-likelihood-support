@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import subprocess
 from pathlib import Path
 
@@ -58,3 +59,72 @@ def test_generated_stage_is_ignored_and_not_tracked() -> None:
         ).stdout
         == ""
     )
+
+
+def test_repository_has_exact_mit_identity_and_no_template_prompts() -> None:
+    pyproject = (PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    license_text = (PROJECT_ROOT / "LICENSE").read_text(encoding="utf-8")
+    public_docs = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in [
+            PROJECT_ROOT / "README.md",
+            PROJECT_ROOT / "CITATION.cff",
+            PROJECT_ROOT / "llms.txt",
+            *sorted((PROJECT_ROOT / "docs").rglob("*.md")),
+        ]
+    )
+
+    assert 'license = "MIT"' in pyproject
+    assert '{ name = "Brian Locke" }' in pyproject
+    assert "MIT License" in license_text
+    assert "Copyright (c) 2026 Brian Locke" in license_text
+    assert "AUTHOR ACTION REQUIRED" not in public_docs
+    assert "Replace-me demonstration" not in public_docs
+
+
+def test_scientific_dependency_is_release_url_only() -> None:
+    pyproject = (PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    stage = (PROJECT_ROOT / "browser-stage.toml").read_text(encoding="utf-8")
+    dependency_text = f"{pyproject}\n{stage}"
+
+    assert "releases/download/v0.2.0/wald_inference-0.2.0-py3-none-any.whl" in dependency_text
+    assert re.search(r"#sha256=[0-9a-f]{64}", pyproject)
+    for forbidden in [
+        "../wald-inference",
+        "wald-inference-core.git@",
+        "localhost",
+        "127.0.0.1",
+        "source = { path",
+        "branch =",
+    ]:
+        assert forbidden not in dependency_text
+
+
+def test_app_delegates_scientific_calculations_to_root_public_core_apis() -> None:
+    contract = (PROJECT_ROOT / "src" / "wald_likelihood_support" / "contract.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "from wald_inference import (" in contract
+    assert "from wald_inference." not in contract
+    for required_api in [
+        "reconstruct_wald_from_95_ci",
+        "standardized_distance",
+        "relative_likelihood",
+        "log_relative_likelihood",
+        "log_support_ratio",
+        "support_ratio",
+        "support_interval",
+        "support_interval_for_ratio",
+    ]:
+        assert required_api in contract
+    for app_local_formula in [
+        "np.exp(",
+        "np.log(",
+        "np.square(",
+        "math.exp(",
+        "math.log(",
+        "math.sqrt(",
+        "-0.5 *",
+    ]:
+        assert app_local_formula not in contract

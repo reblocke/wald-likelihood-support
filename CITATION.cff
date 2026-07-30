@@ -1,15 +1,19 @@
 cff-version: 1.2.0
 message: >-
-  Cite the repository release or commit used. AUTHOR ACTION REQUIRED after
-  initialization: verify the title, authors, version, and any related article
-  or DOI before presenting this as the citation for a scientific app.
-title: Scientific Applet Template
+  No software release has been issued. Cite the exact repository commit used
+  and consult the scientific-reference provenance in the documentation.
+title: Wald Likelihood Support
 type: software
 authors:
   - family-names: Locke
     given-names: Brian
-repository-code: https://github.com/reblocke/scientific-applet-template
-url: https://reblocke.github.io/scientific-applet-template/
+repository-code: https://github.com/reblocke/wald-likelihood-support
+abstract: >-
+  Experimental static app for normalized approximate Wald relative support
+  reconstructed from a reported estimate and two-sided 95% confidence interval.
 license: MIT
-version: 0.1.0
-date-released: 2026-07-29
+keywords:
+  - relative likelihood
+  - support interval
+  - Wald inference
+  - confidence interval

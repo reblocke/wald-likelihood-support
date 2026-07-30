@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Reusable client-side Python scaffold for a focused scientific applet"
+      content="Explore normalized Wald relative support reconstructed from a reported estimate and 95% confidence interval."
     />
-    <title>Scientific Applet Template</title>
+    <title>Wald Likelihood Support</title>
     <link rel="stylesheet" href="./styles.css" />
     <script
       src="https://cdn.plot.ly/plotly-3.1.0.min.js"
@@ -20,14 +20,22 @@
     <a class="skip-link" href="#main-content">Skip to applet</a>
     <header class="site-header">
       <div>
-        <p class="eyebrow">Replace-me demonstration</p>
-        <h1>Scientific Applet Template</h1>
-        <p>
-          Reusable client-side Python scaffold for a focused scientific applet
+        <p class="eyebrow">Observed-data relative support</p>
+        <h1>Wald Likelihood Support</h1>
+        <p class="lede">
+          Explore how much relative support an observed estimate and reported 95%
+          confidence interval provide for candidate effect sizes under a one-parameter
+          Wald reconstruction.
+        </p>
+        <p class="scope-note">
+          This educational research tool shows normalized, approximate relative
+          likelihood. It does not recover the original fitted-model likelihood, assign
+          probabilities of truth, validate clinical thresholds, or provide clinical
+          decision support.
         </p>
       </div>
       <section class="runtime-card" aria-labelledby="runtime-heading">
-        <h2 id="runtime-heading">Runtime</h2>
+        <h2 id="runtime-heading">Private browser calculation</h2>
         <p id="runtime-status" role="status" aria-live="polite" data-state="loading">
           Loading the local Python runtime…
         </p>
@@ -40,10 +48,11 @@
 
     <main id="main-content" class="app-shell">
       <aside class="controls" aria-labelledby="controls-heading">
-        <h2 id="controls-heading">Demonstration inputs</h2>
+        <h2 id="controls-heading">Observed estimate and interval</h2>
         <p class="scope-note">
-          This arithmetic example exists only to prove the template path. Replace it before
-          describing a scientific question.
+          Supply a published two-sided 95% confidence interval. The point estimate is
+          optional because the interval midpoint determines the reconstructed estimate on
+          the working scale.
         </p>
         <div id="error-summary" class="error-summary" role="alert" tabindex="-1" hidden>
           <h3>Check the inputs</h3>
@@ -51,102 +60,417 @@
         </div>
         <form id="applet-form" novalidate>
           <div class="field">
-            <label for="first-value">First value</label>
-            <input
-              id="first-value"
-              name="first_value"
-              type="text"
-              inputmode="decimal"
-              autocomplete="off"
-              value="2"
-              required
-            />
+            <label for="effect-type">Effect measure</label>
+            <select id="effect-type" name="effect_type"></select>
           </div>
           <div class="field">
-            <label for="second-value">Second value</label>
+            <label for="estimate">
+              Point estimate <span class="optional">(optional)</span>
+            </label>
             <input
-              id="second-value"
-              name="second_value"
+              id="estimate"
+              name="estimate"
               type="text"
               inputmode="decimal"
               autocomplete="off"
-              value="3"
-              required
+              placeholder="For example: 1.8"
             />
           </div>
-          <details>
-            <summary>Advanced controls pattern</summary>
-            <p>
-              Put infrequently changed, scientifically justified controls here. This example has
-              no advanced parameter.
+          <div class="field-pair">
+            <div class="field">
+              <label for="ci-lower">Lower 95% CI</label>
+              <input
+                id="ci-lower"
+                name="lower"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                value="1.2"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="ci-upper">Upper 95% CI</label>
+              <input
+                id="ci-upper"
+                name="upper"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                value="2.7"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="null-value">
+              Null value <span class="optional">(optional)</span>
+            </label>
+            <input
+              id="null-value"
+              name="null_value"
+              type="text"
+              inputmode="decimal"
+              autocomplete="off"
+              value="1"
+            />
+            <p class="field-note">
+              Defaults to 1 for ratios and 0 for additive effects.
             </p>
+          </div>
+          <div class="field">
+            <label for="thresholds">
+              Reference thresholds <span class="optional">(optional)</span>
+            </label>
+            <textarea
+              id="thresholds"
+              name="thresholds"
+              rows="2"
+              placeholder="For example: 1.25, 1.5"
+            ></textarea>
+            <p class="field-note">
+              Separate values with commas or spaces. These are user-supplied reference
+              markers, not validated clinical or decision thresholds.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="support-criterion">Support-interval criterion</label>
+            <select id="support-criterion" name="support_criterion">
+              <option value="s_minus_2" selected>S−2 / exp(2):1 (about 7.4:1)</option>
+              <option value="2_to_1">2:1</option>
+              <option value="4_to_1">4:1</option>
+              <option value="8_to_1">8:1</option>
+              <option value="custom">Custom ratio greater than 1</option>
+            </select>
+            <p class="field-note">
+              S−2 uses a log-support cutoff of −2. A 2:1 interval is a different,
+              narrower criterion.
+            </p>
+          </div>
+          <div id="custom-ratio-field" class="field" hidden>
+            <label for="custom-support-ratio">
+              Custom estimate-to-bound support ratio
+            </label>
+            <input
+              id="custom-support-ratio"
+              name="custom_support_ratio"
+              type="text"
+              inputmode="decimal"
+              autocomplete="off"
+              value="6"
+              disabled
+            />
+          </div>
+
+          <details>
+            <summary>Optional candidate A versus candidate B</summary>
+            <p class="field-note">
+              Supply both candidates. Results are reported explicitly in the order
+              L(A)/L(B), with the finite log ratio retained if the ordinary ratio cannot
+              be represented.
+            </p>
+            <div class="field-pair">
+              <div class="field">
+                <label for="candidate-a">Candidate A</label>
+                <input
+                  id="candidate-a"
+                  name="candidate_a"
+                  type="text"
+                  inputmode="decimal"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field">
+                <label for="candidate-b">Candidate B</label>
+                <input
+                  id="candidate-b"
+                  name="candidate_b"
+                  type="text"
+                  inputmode="decimal"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </details>
+
+          <div class="field-pair">
+            <div class="field">
+              <label for="display-range-lower">
+                Display lower <span class="optional">(optional)</span>
+              </label>
+              <input
+                id="display-range-lower"
+                name="display_range_lower"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="display-range-upper">
+                Display upper <span class="optional">(optional)</span>
+              </label>
+              <input
+                id="display-range-upper"
+                name="display_range_upper"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <p class="field-note">
+            A plausible display range changes only the plotted and exported grid, never
+            the reconstructed support summaries or interval.
+          </p>
+
+          <details>
+            <summary>Advanced display controls</summary>
+            <div id="axis-spacing-group" class="field">
+              <label for="axis-spacing">Ratio-axis spacing</label>
+              <select id="axis-spacing" name="axis_spacing">
+                <option value="log" selected>Logarithmic (recommended)</option>
+                <option value="linear">Linear</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="view-mode">Curve view</label>
+              <select id="view-mode" name="view_mode">
+                <option value="relative" selected>
+                  Normalized relative likelihood (peak 1)
+                </option>
+                <option value="log">Log relative support (peak 0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="grid-points">Grid points</label>
+              <select id="grid-points" name="grid_points">
+                <option value="201">201</option>
+                <option value="401">401</option>
+                <option value="801" selected>801</option>
+                <option value="1201">1,201</option>
+                <option value="1601">1,601</option>
+              </select>
+            </div>
           </details>
           <div class="actions">
-            <button id="calculate" type="submit" disabled>Run demonstration</button>
+            <button id="calculate" type="submit" disabled>Update support curve</button>
             <button type="reset" class="secondary">Reset</button>
           </div>
         </form>
       </aside>
 
       <section class="results" aria-labelledby="results-heading">
-        <h2 id="results-heading">Result</h2>
+        <h2 id="results-heading">Relative-support result</h2>
         <div id="result" hidden>
           <p id="result-summary" class="result-summary" aria-live="polite"></p>
+          <p id="plot-description" class="visually-hidden"></p>
           <div
             id="plot"
             class="plot"
             role="img"
-            aria-label="Demonstration bar chart; all values are also listed in the table."
+            aria-describedby="plot-description"
           ></div>
-          <div class="table-wrap">
-            <table id="result-table">
-              <caption>Demonstration values</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Label</th>
-                  <th scope="col">Value</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <div class="export-actions" aria-label="Export result">
-            <button id="export-csv" data-export type="button">Download CSV</button>
-            <button id="export-dashboard" data-export type="button">
-              Download dashboard PNG
+
+          <section aria-labelledby="reconstruction-heading">
+            <h3 id="reconstruction-heading">Reconstructed summary</h3>
+            <dl id="reconstruction-summary" class="summary-grid"></dl>
+          </section>
+
+          <section aria-labelledby="support-interval-heading">
+            <h3 id="support-interval-heading">Selected support interval</h3>
+            <p>
+              The interval contains candidate values for which the CI-implied estimate is
+              no more than R times as supported under the reconstructed Wald likelihood.
+            </p>
+            <dl id="support-interval-summary" class="summary-grid"></dl>
+          </section>
+
+          <section aria-labelledby="reference-heading">
+            <h3 id="reference-heading">Null and reference support</h3>
+            <div class="table-wrap">
+              <table id="reference-table">
+                <caption>
+                  Normalized relative support at the null and user reference values
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Reference / display value</th>
+                    <th scope="col">Working value</th>
+                    <th scope="col">Relative likelihood vs estimate</th>
+                    <th scope="col">Log relative likelihood</th>
+                    <th scope="col">Estimate / candidate</th>
+                    <th scope="col">Candidate / null</th>
+                    <th scope="col">From estimate</th>
+                    <th scope="col">From null</th>
+                    <th scope="col">Inside selected interval</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section aria-labelledby="pairwise-heading">
+            <h3 id="pairwise-heading">Candidate A versus candidate B</h3>
+            <p id="pairwise-empty">
+              No pairwise comparison supplied. Add both candidate A and candidate B to
+              report log L(A)/L(B) and L(A)/L(B).
+            </p>
+            <p id="pairwise-sentence" class="comparison-sentence"></p>
+            <div class="table-wrap">
+              <table id="pairwise-table" hidden>
+                <caption>
+                  Pairwise relative support in the explicit order L(A)/L(B)
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Candidate A</th>
+                    <th scope="col">Candidate B</th>
+                    <th scope="col">log L(A)/L(B)</th>
+                    <th scope="col">L(A)/L(B)</th>
+                    <th scope="col">Direction</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="warnings-section" class="warning-panel" hidden>
+            <h3>Technical warnings</h3>
+            <ul id="warnings-list"></ul>
+          </section>
+
+          <section aria-labelledby="caption-heading">
+            <h3 id="caption-heading">Figure caption</h3>
+            <p id="figure-caption" class="caption-text"></p>
+            <button id="copy-caption" type="button" class="secondary">
+              Copy caption
             </button>
-            <button id="export-figure" data-export type="button">
-              Download figure PNG
-            </button>
-            <button id="copy-caption" type="button">Copy caption</button>
-          </div>
+          </section>
+
+          <section aria-labelledby="exports-heading">
+            <h3 id="exports-heading">Exports</h3>
+            <p>
+              CSV contains only the five plotted grid fields. Interval and pairwise
+              results remain in the accessible tables and strict JSON response.
+            </p>
+            <div class="export-actions" aria-label="Export likelihood-support result">
+              <button id="export-csv" data-export type="button">Download CSV</button>
+              <button id="export-dashboard" data-export type="button">
+                Download dashboard PNG
+              </button>
+              <button id="export-manuscript" data-export type="button">
+                Download manuscript PNG
+              </button>
+            </div>
+          </section>
         </div>
         <div class="empty-state">
-          <p>Run the demonstration to populate the textual result, plot, table, and exports.</p>
+          <p>
+            When the local runtime is ready, update the support curve to populate the
+            plot, reconstructed summary, support tables, caption, and exports.
+          </p>
+          <p>
+            Relative likelihood is normalized to 1 at the CI-implied estimate. It is not
+            a posterior probability that a candidate value is true.
+          </p>
         </div>
       </section>
     </main>
 
     <footer>
       <section>
-        <h2>Scope</h2>
-        <p>Engineering scaffold only. No scientific formula or inference claim is included.</p>
+        <h2>Interpretation and scope</h2>
+        <p>
+          This is an approximate profile-likelihood-style view under Wald assumptions,
+          not the original fitted-model profile likelihood. Support ratios do not become
+          probabilities of truth.
+        </p>
+        <p>
+          <a
+            href="https://github.com/reblocke/wald-likelihood-support/blob/main/docs/SCIENTIFIC_SCOPE.md"
+            >Scientific scope and assumptions</a
+          >
+        </p>
       </section>
       <section>
         <h2>Privacy</h2>
-        <p>Inputs remain in page and worker memory; there is no backend, telemetry, or storage.</p>
+        <p>
+          Inputs and results remain in transient page and worker memory. There is no app
+          backend, telemetry, account, upload, or saved/shareable state.
+        </p>
+        <p>
+          <a
+            href="https://github.com/reblocke/wald-likelihood-support/blob/main/docs/PRIVACY.md"
+            >Privacy details</a
+          >
+        </p>
+      </section>
+      <section>
+        <h2>Related focused tools</h2>
+        <ul class="related-tools">
+          <li>
+            <a href="https://github.com/reblocke/compatibility-curve"
+              >Wald compatibility curve</a
+            >
+            — candidate-value compatibility.
+          </li>
+          <li>
+            <a href="https://github.com/reblocke/critical-effect-size"
+              >Critical effect size</a
+            >
+            — detectability under a specified design.
+          </li>
+          <li>
+            <a href="https://github.com/reblocke/type-s-m-calibrator"
+              >Type S/M calibrator</a
+            >
+            — sign and magnitude error under assumed truths.
+          </li>
+          <li>
+            <a href="https://github.com/reblocke/precision-guardrail-planner"
+              >Precision guardrail planner</a
+            >
+            — required precision planning.
+          </li>
+          <li>
+            <a href="https://reblocke.github.io/conf_curve_likelihood/"
+              >Integrated workbench</a
+            >
+            — side-by-side exploration.
+          </li>
+        </ul>
       </section>
       <section>
         <h2>Sources and maintenance</h2>
         <p>
-          <a href="https://github.com/reblocke/scientific-applet-template/blob/main/docs/SCIENTIFIC_SCOPE.md">Scientific scope</a> ·
-          <a href="https://github.com/reblocke/scientific-applet-template/blob/main/docs/PRIVACY.md">Privacy details</a> ·
-          <a href="https://github.com/reblocke/scientific-applet-template">Repository</a> ·
-          <a href="https://github.com/reblocke">Related tools</a>
+          Numerical behavior comes from the released
+          <a href="https://github.com/reblocke/wald-inference-core"
+            >wald-inference core</a
+          >. S−2 terminology is discussed by
+          <a
+            href="https://academic.oup.com/ajrccm/article/211/9/1610/8300617"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Zampieri et al.</a
+          >
         </p>
         <p>
-          <span id="core-version">Core: none configured</span> ·
-          <span id="footer-status">template 0.1.0</span>
+          <a href="https://github.com/reblocke/wald-likelihood-support"
+            >Source repository</a
+          >
+          ·
+          <a
+            href="https://github.com/reblocke/wald-likelihood-support/blob/main/llms.txt"
+            >Machine-readable project guide</a
+          >
+        </p>
+        <p>
+          <span id="core-version">Core version loading</span> ·
+          <span id="footer-status">wald-likelihood-support 0.1.0</span>
         </p>
       </section>
     </footer>
