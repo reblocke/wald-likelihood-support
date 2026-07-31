@@ -153,8 +153,8 @@ alone is not evidence that those external actions succeeded.
 For each release, record:
 
 - exact equality between the version tag and authoritative project version;
-- GitHub verification of the signed annotated tag and its remote tag-object identity;
-- containment of the verified tag target in protected `main` history before repository code;
+- exact identity of the local and remote annotated tag objects and their event-commit target;
+- containment of the tag target in protected `main` history before repository code;
 - the exact Core wheel URL/checksum and generated stage manifest hash;
 - unit, property, scientific-reference, regression, policy, Chromium, and WebKit results;
 - locally built and re-downloaded draft-body and asset comparison;
@@ -165,6 +165,6 @@ For each release, record:
 
 Repository-policy tests also verify full-SHA Action pins with version comments, checkout credential
 isolation, least-privilege workflow permissions, release-cache disablement, protected-main and
-signed-tag gates, checksummed GitHub CLI installation, exact draft verification, stable
+annotated-tag identity gates, checksummed GitHub CLI installation, exact draft verification, stable
 publication ordering, Dependabot coverage, and private-reporting guidance. These checks establish
 engineering policy, not scientific, clinical, or regulatory validity.
