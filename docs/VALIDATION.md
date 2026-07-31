@@ -2,7 +2,7 @@
 
 ## Status
 
-Version 0.1.2 is an experimental app prerelease with a static GitHub Pages deployment. The checks
+Version 0.1.3 is an experimental app release with a static GitHub Pages deployment. The checks
 below are its engineering acceptance requirements and remain required for later releases.
 
 Engineering verification demonstrates implementation consistency. It does not establish that a
@@ -12,17 +12,20 @@ the app is scientifically, clinically, or regulatorily validated.
 ## Numerical authority
 
 All numerical acceptance tests must exercise root-public APIs from the exact `wald-inference`
-v0.4.1 prerelease wheel:
+v0.4.2 stable, immutable wheel:
 
 ```text
-https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl
-SHA-256 d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b
-Tag target f4613177b6dc81d194aa70762152de2bfa86663b
+https://github.com/reblocke/wald-inference-core/releases/download/v0.4.2/wald_inference-0.4.2-py3-none-any.whl
+SHA-256 225331d7b9d7b70e2508eecb92851a92a8c4e245baf412a1eb0f464d85da1349
+Tag object 26ea4a721b2dfa07f75c2f388a42d6272c88477c
+Tag target 8afd0a463cc1d2586b8ce5cf92f40900647c3190
 ```
 
 The app must not maintain an independent formula oracle. Direct root-public core calls are
 compared with app responses, while source-controlled fixtures preserve integrated-browser
-migration behavior.
+migration behavior. Core main CI run `30628647428` and release run `30629025349` succeeded; the
+v0.4.2 release records no numerical change and preserves every value in the frozen 23,095-value
+pre-split parity contract.
 
 ## Frozen migration baseline
 

@@ -5,6 +5,15 @@ All notable app changes use a release-oriented record here. Releases follow
 
 ## [Unreleased]
 
+## [0.1.3] — 2026-07-31
+
+- Adopt the official stable, immutable `wald-inference` v0.4.2 wheel from annotated tag target
+  `8afd0a463cc1d2586b8ce5cf92f40900647c3190`, pinned to SHA-256
+  `225331d7b9d7b70e2508eecb92851a92a8c4e245baf412a1eb0f464d85da1349`. Core v0.4.2 changes
+  release governance only and preserves every numerical API and frozen baseline value.
+- Synchronize app version 0.1.3 across package metadata, citation, browser staging, visible runtime
+  copy, lockfile, and tests while preserving the exact likelihood-only response/export contracts,
+  pairwise and S−2 semantics, scientific tolerances, and client-side privacy boundary.
 - Harden CI, Pages, and release automation with least-privilege permissions, full-SHA Action pins,
   checkout credential isolation, and disabled dependency caching for release artifacts.
 - Require an annotated tag whose exact remote tag object is bound to the event commit on protected
@@ -15,9 +24,9 @@ All notable app changes use a release-oriented record here. Releases follow
   body/asset comparison and post-publication immutable-release and asset verification.
 - Add grouped weekly Dependabot proposals, private vulnerability reporting guidance, contribution
   policy, scoped issue forms, a pull-request checklist, and repository-policy regressions.
-- Preserve version `0.1.2`, the exact `wald-inference` v0.4.1 wheel and checksum, every normalized
-  support and browser contract, pairwise/S−2 semantics, the app's negative scope, and the
-  client-side privacy boundary.
+- Preserve every normalized support and browser contract, the app's negative scope, and the
+  client-side privacy boundary; no Wald, likelihood, support-ratio, or support-interval formula is
+  added or copied locally.
 
 ## [0.1.2] — 2026-07-30
 
@@ -79,7 +88,8 @@ All notable app changes use a release-oriented record here. Releases follow
 - The template’s arithmetic demonstration carried no scientific authority and is not an app
   release in this repository.
 
-[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/reblocke/wald-likelihood-support/releases/tag/v0.1.0

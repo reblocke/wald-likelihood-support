@@ -60,7 +60,7 @@ template.
 
 - its focused request and seven-key response contract;
 - likelihood-only browser controls, summaries, plot, warnings, and exact five-column CSV;
-- delegation to root-public APIs in the published `wald-inference` prerelease;
+- delegation to root-public APIs in the published `wald-inference` release;
 - B01–B03/B08 and generic-support validation;
 - normalized approximate-likelihood and clinical-scope boundaries;
 - Zampieri citation provenance; and
