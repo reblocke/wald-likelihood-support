@@ -5,6 +5,15 @@ All notable app changes use a release-oriented record here. Releases follow
 
 ## [Unreleased]
 
+## [0.1.4] — 2026-07-31
+
+- Update the locked test/build toolchain to pytest 9.1.1 and setuptools 83.0.0.
+- Update the reviewed, full-SHA GitHub Actions pins used by CI, Pages, and release workflows.
+- Publish the maintenance-only app state as an immutable patch release so the hosted Pages commit,
+  package metadata, citation, and release artifacts identify the same source commit.
+- Preserve the exact Core v0.4.2 pin, normalized-support calculations, focused response/export
+  contracts, pairwise and S−2 semantics, scientific tolerances, and client-side privacy boundary.
+
 ## [0.1.3] — 2026-07-31
 
 - Adopt the official stable, immutable `wald-inference` v0.4.2 wheel from annotated tag target
@@ -88,7 +97,8 @@ All notable app changes use a release-oriented record here. Releases follow
 - The template’s arithmetic demonstration carried no scientific authority and is not an app
   release in this repository.
 
-[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/reblocke/wald-likelihood-support/compare/v0.1.0...v0.1.1
