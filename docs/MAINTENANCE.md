@@ -11,17 +11,19 @@ validity.
 ## Ownership
 
 Maintainer: Brian Locke (`@reblocke`). Use repository issues and pull requests for public project
-coordination.
+coordination through the scoped templates.
 
 Scientific, code, privacy, accessibility, and release review currently remain with the
-maintainer. Security or privacy-sensitive reports should avoid real input values and PHI; use a
-minimal synthetic reproduction through the repository’s issue or pull-request workflow.
+maintainer. Report vulnerabilities and privacy defects privately through
+[SECURITY.md](../SECURITY.md), using only the smallest synthetic reproduction needed.
 
 ## Dependency updates
 
 Review Pyodide, Plotly, Python, uv, Ruff, pytest, Hypothesis, Playwright, and GitHub Actions
-updates deliberately. `wald-inference` is scientific authority, not an incidental dependency.
-For a core update:
+updates deliberately. Dependabot groups weekly `uv` and GitHub Actions updates for review; it does
+not authorize automatic merging. Keep each third-party Action pinned to a full commit SHA with its
+reviewed version in a comment. `wald-inference` is scientific authority, not an incidental
+dependency. For a core update:
 
 1. review its release notes and scientific changes;
 2. confirm that every used function remains root-public and behaviorally documented;
@@ -46,9 +48,30 @@ Releases require a reviewed pull request and an exact expected head. Before tagg
 5. record exact commands, runtime/browser versions, results, limitations, and skipped checks; and
 6. confirm that the changelog and `CITATION.cff` describe the intended release rather than a plan.
 
-Only then create an annotated tag on the reviewed merge commit. Deployment is a separate action.
-Do not describe a hosted app as available until an actual deployment has completed and a hosted
-smoke has passed.
+Only then create a signed annotated tag on the reviewed merge commit. The release workflow
+verifies the signature and remote tag object before it executes repository code, requires the
+event commit to be contained in protected `main`, parses the project version with isolated Python,
+reruns the complete suite under read-only contents permission, disables the shared dependency
+cache for the release build, and creates the deterministic source archive, browser-stage manifest,
+and SHA-256 checksums before a release exists.
+
+A separate job with narrowly scoped contents-write permission uses an exact checksummed GitHub
+CLI, requires repository release immutability through the `RELEASE_SETTINGS_READ_TOKEN` Actions
+secret, creates a draft stable release with every asset, re-downloads and compares the draft
+assets and release body, then publishes only the verified draft. The tag must equal `v` plus the
+authoritative project version, and the public release body contains only that version's nonempty
+changelog section.
+
+If the workflow fails after draft creation, retain the draft for inspection. Repair the workflow
+and create a new tag only after the failure is understood; never move a published tag or replace a
+published asset. Publish once into the intended stable lifecycle state only after hosted Pages and
+portfolio-level validation are complete. Deployment remains a separate action; do not describe a
+hosted app as available until an actual deployment has completed and a hosted smoke has passed.
+
+Repository settings must retain read-only default workflow permissions, protect `main` and `v*`
+tags, enable private vulnerability reporting and Dependabot security updates, and enable immutable
+releases before the next tag is created. Store a repository-administration read token as the
+`RELEASE_SETTINGS_READ_TOKEN` Actions secret so the workflow can fail closed before publication.
 
 ## Routine review
 
