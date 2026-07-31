@@ -5,6 +5,19 @@ All notable app changes use a release-oriented record here. Releases follow
 
 ## [Unreleased]
 
+- Harden CI, Pages, and release automation with least-privilege permissions, full-SHA Action pins,
+  checkout credential isolation, and disabled dependency caching for release artifacts.
+- Require a GitHub-verified signed annotated tag on protected `main`, bound to the event commit and
+  authoritative project version before repository code is executed.
+- Install an exact checksummed GitHub CLI, require repository immutability through a dedicated
+  administration-read secret, and verify the complete draft body and asset set before one-time
+  stable publication.
+- Add grouped weekly Dependabot proposals, private vulnerability reporting guidance, contribution
+  policy, scoped issue forms, a pull-request checklist, and repository-policy regressions.
+- Preserve version `0.1.2`, the exact `wald-inference` v0.4.1 wheel and checksum, every normalized
+  support and browser contract, pairwise/S−2 semantics, the app's negative scope, and the
+  client-side privacy boundary.
+
 ## [0.1.2] — 2026-07-30
 
 - Wrap Plotly figure titles into bounded lines so every supported effect label remains readable

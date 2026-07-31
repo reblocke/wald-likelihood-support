@@ -11,6 +11,12 @@ reported estimate and two-sided 95% confidence interval.
 > Engineering and hosted-contract verification cannot establish scientific, clinical, or
 > regulatory validity.
 
+Public engineering, scientific-boundary, and accessibility reports use the scoped issue forms in
+`.github/`. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md); never put
+protected health information, credentials, restricted data, or sensitive values in a public
+report. Contribution and release requirements are documented in
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Focused question
 
 Under a one-parameter Wald reconstruction of a reported estimate and 95% confidence interval, how
@@ -185,6 +191,16 @@ make verify
 without a sibling source repository. A passing local command alone is not evidence that a release
 or hosted deployment exists; verify the corresponding GitHub release, Pages deployment, and live
 contract.
+
+A new version is published only from a signed annotated tag whose commit is already contained in
+protected `main`. The release workflow verifies the tag before executing repository code, reruns
+the complete suite with read-only contents permission, builds a deterministic source archive,
+browser-stage manifest, and checksums, and transfers them to a narrowly write-enabled publishing
+job. That job requires repository release immutability through the
+`RELEASE_SETTINGS_READ_TOKEN` Actions secret, creates one draft stable release, re-downloads and
+compares the exact release body and every asset, and publishes only the verified draft.
+Credentialed commands use an exact checksummed GitHub CLI. Release notes contain only the tagged
+version's nonempty changelog section.
 
 ## Creation provenance
 

@@ -74,3 +74,8 @@ implementation and document:
 7. applicable institutional, legal, and compliance assumptions.
 
 Those capabilities are outside the current authorized scope.
+
+Public issues and pull requests must not contain protected health information, patient-level data,
+credentials, restricted material, sensitive input values, or unredacted local logs. Report a
+privacy or security defect through the private process in [SECURITY.md](../SECURITY.md), using only
+the smallest synthetic reproduction needed.
