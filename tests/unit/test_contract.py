@@ -46,7 +46,7 @@ def test_focused_contract_has_exact_sections_and_grid_fields() -> None:
         "log_relative_likelihood",
     }
     assert response["meta"]["core_version"] == "0.4.2"
-    assert response["meta"]["app_version"] == "0.1.3"
+    assert response["meta"]["app_version"] == "0.1.4"
     assert response["pairwise_comparisons"][0]["sentence"].endswith(
         "the reported order is L(A)/L(B)."
     )

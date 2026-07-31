@@ -2,7 +2,7 @@
 
 ## Status
 
-Version 0.1.3 is an experimental app release with a static GitHub Pages deployment. The checks
+Version 0.1.4 is an experimental app release with a static GitHub Pages deployment. The checks
 below are its engineering acceptance requirements and remain required for later releases.
 
 Engineering verification demonstrates implementation consistency. It does not establish that a
