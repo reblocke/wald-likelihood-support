@@ -194,6 +194,7 @@ def test_release_installs_checksummed_github_cli_before_credentialed_commands() 
 
 def test_dependabot_covers_locked_python_and_actions_without_auto_merge() -> None:
     dependabot = (PROJECT_ROOT / ".github" / "dependabot.yml").read_text(encoding="utf-8")
+    pyproject = (PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8")
 
     assert 'package-ecosystem: "uv"' in dependabot
     assert 'package-ecosystem: "github-actions"' in dependabot
@@ -201,6 +202,9 @@ def test_dependabot_covers_locked_python_and_actions_without_auto_merge() -> Non
     assert dependabot.count("default-days: 7") == 2
     assert "python-dependencies:" in dependabot
     assert "github-actions:" in dependabot
+    assert '"numpy>=2.2.5,<2.3"' in pyproject
+    assert 'dependency-name: "numpy"' in dependabot
+    assert dependabot.count('">=2.3"') == 1
     assert "automerge" not in dependabot.lower()
 
 
