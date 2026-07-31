@@ -7,22 +7,25 @@ construction, standardized distance, normalized relative likelihood, log relativ
 support ratios, pairwise log support ratios, and support intervals. The app imports only
 root-public APIs and does not copy their formulas.
 
-The exact dependency target is the official v0.4.1 prerelease wheel published on 2026-07-30:
+The exact dependency target is the official stable, immutable v0.4.2 wheel published on
+2026-07-31:
 
 ```text
-Release: https://github.com/reblocke/wald-inference-core/releases/tag/v0.4.1
-Wheel:   https://github.com/reblocke/wald-inference-core/releases/download/v0.4.1/wald_inference-0.4.1-py3-none-any.whl
-SHA-256: d7272023f65088729d3ff997cab7cac57b84f22ac6108244ec2170434557d99b
-Size:    37939 bytes
-Tag:     v0.4.1
-Commit:  f4613177b6dc81d194aa70762152de2bfa86663b
+Release:    https://github.com/reblocke/wald-inference-core/releases/tag/v0.4.2
+Wheel:      https://github.com/reblocke/wald-inference-core/releases/download/v0.4.2/wald_inference-0.4.2-py3-none-any.whl
+SHA-256:    225331d7b9d7b70e2508eecb92851a92a8c4e245baf412a1eb0f464d85da1349
+Size:       38132 bytes
+Tag:        v0.4.2
+Tag object: 26ea4a721b2dfa07f75c2f388a42d6272c88477c
+Commit:     8afd0a463cc1d2586b8ce5cf92f40900647c3190
 License: MIT, Copyright (c) 2026 Brian Locke
 ```
 
-GitHub records this official release as a prerelease. Version 0.4.1 preserves the finite support
-endpoint checks and repairs pairwise support-ratio coherence by delegating the pairwise result to
-the authoritative log-domain primitive. It also rejects unrepresentable natural-scale ratio
-underflow. The focused app adds or copies no numerical formula.
+GitHub records this official release as stable and immutable. Version 0.4.2 changes release and
+repository governance only while preserving every numerical formula, public API, tolerance,
+dependency resolution, and frozen baseline value. It retains the v0.4.1 finite support-endpoint,
+pairwise log-domain, and strict natural-scale ratio-underflow repairs. The focused app adds or
+copies no numerical formula.
 
 The wheel URL and digest must agree in `pyproject.toml`, `uv.lock`, and `browser-stage.toml` before
 any app release. A local sibling checkout, branch dependency, editable external core, localhost
@@ -50,7 +53,7 @@ metadata, then records file, package, and aggregate hashes.
 
 Direct runtime requirements are:
 
-- `wald-inference` 0.4.1 prerelease, exact URL/checksum above, MIT;
+- `wald-inference` 0.4.2 stable release, exact URL/checksum above, MIT;
 - NumPy `>=2.2.5,<2.3`, numerical array support required by the core, BSD-3-Clause; and
 - SciPy `>=1.14.1,<1.15` through the core/Pyodide runtime, BSD-3-Clause.
 
