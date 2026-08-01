@@ -22,9 +22,17 @@ report. Contribution and release requirements are documented in
 Under a one-parameter Wald reconstruction of a reported estimate and 95% confidence interval, how
 much relative support do the data provide for selected candidate effect values?
 
+## Why this app exists and intended audience
+
+A reported confidence interval can be used to compare candidate effects under an explicit Wald
+approximation, but that comparison is easily confused with an exact fitted-model likelihood or a
+posterior probability. This focused app makes the normalized support curve, interval criterion,
+and pairwise comparison order inspectable without claiming to recover the original analysis.
+
 The app is intended for researchers, educators, reviewers, and scientifically trained readers who
-need a transparent sensitivity display from aggregate published results. It is not clinical
-decision support.
+need a transparent sensitivity display from aggregate published results. Representative uses are
+methodological teaching, manuscript review, and sensitivity discussion. It is not clinical
+decision support or a substitute for the original model and data.
 
 ## Inputs and outputs
 
@@ -212,5 +220,12 @@ a runtime dependency. Details are in [docs/TEMPLATE_USAGE.md](docs/TEMPLATE_USAG
 ## License and citation
 
 Repository code is MIT licensed, Copyright (c) 2026 Brian Locke. External packages and the cited
-article retain their own licenses. Cite version 0.1.4 and, for exact reproducibility, its tagged
-commit; see [CITATION.cff](CITATION.cff).
+article retain their own licenses. Use two complementary citations when applicable:
+
+- **Software:** cite version 0.1.4 and, for exact reproducibility, its tagged commit using
+  [CITATION.cff](CITATION.cff).
+- **Method context:** cite Zampieri et al. above when using the evidential-likelihood, support,
+  likelihood-ratio, or S−2 terminology.
+
+The method citation does not replace the software citation and is not the numerical authority for
+the implementation; the exact pinned Core release and its tests govern executed behavior.
